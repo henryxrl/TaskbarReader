@@ -1,9 +1,9 @@
 <sharpUpdate>
-  <update appID="TaskBarReader">
+  <update appID="TaskbarReader">
     <version>2.3.1.3</version>
-    <url>https://raw.githubusercontent.com/henryxrl/TaskBarReader/master/TaskBarReader/bin/Release/TaskBarReader.exe</url>
-    <fileName>TaskBarReader.exe</fileName>
-    <md5>48313CB7EF8548A3DE0D575311E8C1AE</md5>
+    <url>https://raw.githubusercontent.com/henryxrl/TaskbarReader/master/TaskbarReader/bin/Release/TaskbarReader.exe</url>
+    <fileName>TaskbarReader.exe</fileName>
+    <md5>B025CE3E5F13756EA4ED8D92C2B65A55</md5>
     <launchArgs>
     </launchArgs>
     <description>11/8/2018 Update:
