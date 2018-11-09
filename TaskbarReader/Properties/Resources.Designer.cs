@@ -19,7 +19,7 @@ namespace TaskbarReader.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -432,7 +432,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hotkeys.
+        ///   Looks up a localized string similar to How To....
         /// </summary>
         internal static string en_hotkey_label {
             get {
@@ -446,6 +446,24 @@ namespace TaskbarReader.Properties {
         internal static string en_hotkey_label1 {
             get {
                 return ResourceManager.GetString("en_hotkey_label1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouse Actions.
+        /// </summary>
+        internal static string en_hotkey_label2 {
+            get {
+                return ResourceManager.GetString("en_hotkey_label2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keyboard Hotkeys.
+        /// </summary>
+        internal static string en_hotkey_label3 {
+            get {
+                return ResourceManager.GetString("en_hotkey_label3", resourceCulture);
             }
         }
         
@@ -468,7 +486,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+Right.
+        ///   Looks up a localized string similar to Ctrl+Shift+X.
         /// </summary>
         internal static string en_hotkey1_label {
             get {
@@ -486,7 +504,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+Delete.
+        ///   Looks up a localized string similar to Ctrl+Shift+D.
         /// </summary>
         internal static string en_hotkey10_label {
             get {
@@ -504,7 +522,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+Left.
+        ///   Looks up a localized string similar to Ctrl+Shift+Z.
         /// </summary>
         internal static string en_hotkey2_label {
             get {
@@ -522,7 +540,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+Up.
+        ///   Looks up a localized string similar to Ctrl+Shift+A.
         /// </summary>
         internal static string en_hotkey3_label {
             get {
@@ -540,7 +558,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+Down.
+        ///   Looks up a localized string similar to Ctrl+Shift+S.
         /// </summary>
         internal static string en_hotkey4_label {
             get {
@@ -558,7 +576,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+X.
+        ///   Looks up a localized string similar to Ctrl+Shift+C.
         /// </summary>
         internal static string en_hotkey5_label {
             get {
@@ -612,7 +630,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+Up.
+        ///   Looks up a localized string similar to Ctrl+Shift+A.
         /// </summary>
         internal static string en_hotkey8_label {
             get {
@@ -630,11 +648,65 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+Down.
+        ///   Looks up a localized string similar to Ctrl+Shift+S.
         /// </summary>
         internal static string en_hotkey9_label {
             get {
                 return ResourceManager.GetString("en_hotkey9_label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide / Show TaskbarReader.
+        /// </summary>
+        internal static string en_mouse1 {
+            get {
+                return ResourceManager.GetString("en_mouse1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left Double Click.
+        /// </summary>
+        internal static string en_mouse1_label {
+            get {
+                return ResourceManager.GetString("en_mouse1_label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open TXT.
+        /// </summary>
+        internal static string en_mouse2 {
+            get {
+                return ResourceManager.GetString("en_mouse2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Middle Click.
+        /// </summary>
+        internal static string en_mouse2_label {
+            get {
+                return ResourceManager.GetString("en_mouse2_label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show context menu.
+        /// </summary>
+        internal static string en_mouse3 {
+            get {
+                return ResourceManager.GetString("en_mouse3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Right Click.
+        /// </summary>
+        internal static string en_mouse3_label {
+            get {
+                return ResourceManager.GetString("en_mouse3_label", resourceCulture);
             }
         }
         
@@ -824,6 +896,15 @@ namespace TaskbarReader.Properties {
         internal static string en_update_verifying {
             get {
                 return ResourceManager.GetString("en_update_verifying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N&lt;br/&gt;o&lt;br/&gt;t&lt;br/&gt;&lt;br/&gt;S&lt;br/&gt;u&lt;br/&gt;p&lt;br/&gt;p&lt;br/&gt;o&lt;br/&gt;r&lt;br/&gt;t&lt;br/&gt;e&lt;br/&gt;d.
+        /// </summary>
+        internal static string en_vertical_not_supported {
+            get {
+                return ResourceManager.GetString("en_vertical_not_supported", resourceCulture);
             }
         }
         
@@ -1188,7 +1269,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 热键说明.
+        ///   Looks up a localized string similar to 使用说明.
         /// </summary>
         internal static string zh_hotkey_label {
             get {
@@ -1202,6 +1283,24 @@ namespace TaskbarReader.Properties {
         internal static string zh_hotkey_label1 {
             get {
                 return ResourceManager.GetString("zh_hotkey_label1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 鼠标按键.
+        /// </summary>
+        internal static string zh_hotkey_label2 {
+            get {
+                return ResourceManager.GetString("zh_hotkey_label2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 键盘热键.
+        /// </summary>
+        internal static string zh_hotkey_label3 {
+            get {
+                return ResourceManager.GetString("zh_hotkey_label3", resourceCulture);
             }
         }
         
@@ -1224,7 +1323,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+右.
+        ///   Looks up a localized string similar to Ctrl+Shift+X.
         /// </summary>
         internal static string zh_hotkey1_label {
             get {
@@ -1242,7 +1341,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+Delete.
+        ///   Looks up a localized string similar to Ctrl+Shift+D.
         /// </summary>
         internal static string zh_hotkey10_label {
             get {
@@ -1260,7 +1359,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+左.
+        ///   Looks up a localized string similar to Ctrl+Shift+Z.
         /// </summary>
         internal static string zh_hotkey2_label {
             get {
@@ -1278,7 +1377,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+上.
+        ///   Looks up a localized string similar to Ctrl+Shift+A.
         /// </summary>
         internal static string zh_hotkey3_label {
             get {
@@ -1296,7 +1395,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+下.
+        ///   Looks up a localized string similar to Ctrl+Shift+S.
         /// </summary>
         internal static string zh_hotkey4_label {
             get {
@@ -1314,7 +1413,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+X.
+        ///   Looks up a localized string similar to Ctrl+Shift+C.
         /// </summary>
         internal static string zh_hotkey5_label {
             get {
@@ -1368,7 +1467,7 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+上.
+        ///   Looks up a localized string similar to Ctrl+Shift+A.
         /// </summary>
         internal static string zh_hotkey8_label {
             get {
@@ -1386,11 +1485,65 @@ namespace TaskbarReader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+下.
+        ///   Looks up a localized string similar to Ctrl+Shift+S.
         /// </summary>
         internal static string zh_hotkey9_label {
             get {
                 return ResourceManager.GetString("zh_hotkey9_label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 显示/隐藏 TaskbarReader.
+        /// </summary>
+        internal static string zh_mouse1 {
+            get {
+                return ResourceManager.GetString("zh_mouse1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 左键双击.
+        /// </summary>
+        internal static string zh_mouse1_label {
+            get {
+                return ResourceManager.GetString("zh_mouse1_label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 打开TXT.
+        /// </summary>
+        internal static string zh_mouse2 {
+            get {
+                return ResourceManager.GetString("zh_mouse2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 中键单击.
+        /// </summary>
+        internal static string zh_mouse2_label {
+            get {
+                return ResourceManager.GetString("zh_mouse2_label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 显示右键菜单.
+        /// </summary>
+        internal static string zh_mouse3 {
+            get {
+                return ResourceManager.GetString("zh_mouse3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 右键单击.
+        /// </summary>
+        internal static string zh_mouse3_label {
+            get {
+                return ResourceManager.GetString("zh_mouse3_label", resourceCulture);
             }
         }
         
@@ -1580,6 +1733,15 @@ namespace TaskbarReader.Properties {
         internal static string zh_update_verifying {
             get {
                 return ResourceManager.GetString("zh_update_verifying", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 不支持竖任务栏.
+        /// </summary>
+        internal static string zh_vertical_not_supported {
+            get {
+                return ResourceManager.GetString("zh_vertical_not_supported", resourceCulture);
             }
         }
         

@@ -12,8 +12,10 @@ namespace TaskbarHook
 
         internal static void CreateAndInitialize(IntPtr taskbarHandle)
         {
-            Instance = new Taskbar();
-            Instance.Handle = taskbarHandle;
+            Instance = new Taskbar
+            {
+                Handle = taskbarHandle
+            };
             Instance.Rectangle = User32.GetWindowRectangle(Instance.Handle);
             Instance.TaskbarResizeHandle = User32.RegisterWindowSizeChangeEvent(Instance.Handle, taskbarResizeDelegate);
         }

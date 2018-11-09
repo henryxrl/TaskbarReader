@@ -14,12 +14,12 @@ namespace AutoUpdate
 		/// <summary>
 		/// The name of your application as you want it displayed on the update form
 		/// </summary>
-		String ApplicationName { get; }
+		string ApplicationName { get; }
 		/// <summary>
 		/// An identifier string to use to identify your application in the update.xml
 		/// Should be the same as your appId in the update.xml
 		/// </summary>
-		String ApplicationID { get; }
+		string ApplicationID { get; }
 		/// <summary>
 		/// The current language code
 		/// </summary>

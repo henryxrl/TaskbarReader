@@ -28,7 +28,7 @@ namespace AutoUpdate
 		/// </summary>
 		private BackgroundWorker bgWorker;
 
-		private Boolean autoCheck;
+		private bool autoCheck;
 
 		/// <summary>
 		/// Creates a new AutoUpdater object
@@ -51,7 +51,7 @@ namespace AutoUpdate
 		/// Checks for an update for the program passed.
 		/// If there is an update, a dialog asking to download will appear
 		/// </summary>
-		public void DoUpdate(Boolean auto)
+		public void DoUpdate(bool auto)
 		{
 			autoCheck = auto;
 
@@ -93,11 +93,11 @@ namespace AutoUpdate
 				else
 				{
 					if (!autoCheck)
-						MessageBoxEx.Show(this.applicationInfo.Context, tools.getString("autoUpdater_result_latest"));
+						MessageBoxEx.Show(this.applicationInfo.Context, tools.GetString("autoUpdater_result_latest"));
 				}
 			}
 			else
-				MessageBoxEx.Show(this.applicationInfo.Context, tools.getString("autoUpdater_result_none"));
+				MessageBoxEx.Show(this.applicationInfo.Context, tools.GetString("autoUpdater_result_none"));
 		}
 
 		/// <summary>
@@ -112,13 +112,13 @@ namespace AutoUpdate
 			// Download update
 			if (result == DialogResult.OK)
 			{
-				String currentPath = this.applicationInfo.ApplicationAssembly.Location;
-				String newPath = Path.GetDirectoryName(currentPath) + "\\" + update.FileName;
+				string currentPath = this.applicationInfo.ApplicationAssembly.Location;
+				string newPath = Path.GetDirectoryName(currentPath) + "\\" + update.FileName;
 
 				// "Install" it
 				AutoClosingMessageBox.Show(this.applicationInfo.Context,
-											tools.getString("autoUpdater_msg_success"),
-											tools.getString("autoUpdater_msg_success_title"),
+											tools.GetString("autoUpdater_msg_success"),
+											tools.GetString("autoUpdater_msg_success_title"),
 											5000);
 				UpdateApplication(form.TempFilePath, currentPath, newPath, update.LaunchArgs);
 
@@ -127,15 +127,15 @@ namespace AutoUpdate
 			else if (result == DialogResult.Abort)
 			{
 				MessageBoxEx.Show(this.applicationInfo.Context,
-									tools.getString("autoUpdater_msg_terminated"),
-									tools.getString("autoUpdater_msg_terminated_title"),
+									tools.GetString("autoUpdater_msg_terminated"),
+									tools.GetString("autoUpdater_msg_terminated_title"),
 									MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 			else
 			{
 				MessageBoxEx.Show(this.applicationInfo.Context,
-									tools.getString("autoUpdater_msg_failed"),
-									tools.getString("autoUpdater_msg_failed_title"),
+									tools.GetString("autoUpdater_msg_failed"),
+									tools.GetString("autoUpdater_msg_failed_title"),
 									MessageBoxButtons.OK, MessageBoxIcon.Information);
 			}
 		}
@@ -147,12 +147,12 @@ namespace AutoUpdate
 		/// <param name="currentPath">The path of the current application</param>
 		/// <param name="newPath">The new path for the new file</param>
 		/// <param name="launchArgs">The launch arguments</param>
-		private void UpdateApplication(String tempFilePath, String currentPath, String newPath, String launchArgs)
+		private void UpdateApplication(string tempFilePath, string currentPath, string newPath, string launchArgs)
 		{
-			String argument = "/C choice /C Y /N /D Y /T 4 & Del /F /Q \"{0}\" & choice /C Y /N /D Y /T 2 & Move /Y \"{1}\" \"{2}\" & Start \"\" /D \"{3}\" \"{4}\" {5}";
+			string argument = "/C choice /C Y /N /D Y /T 4 & Del /F /Q \"{0}\" & choice /C Y /N /D Y /T 2 & Move /Y \"{1}\" \"{2}\" & Start \"\" /D \"{3}\" \"{4}\" {5}";
 
 			ProcessStartInfo Info = new ProcessStartInfo();
-			Info.Arguments = String.Format(argument, currentPath, tempFilePath, newPath, Path.GetDirectoryName(newPath), Path.GetFileName(newPath), launchArgs);
+			Info.Arguments = string.Format(argument, currentPath, tempFilePath, newPath, Path.GetDirectoryName(newPath), Path.GetFileName(newPath), launchArgs);
 			Info.WindowStyle = ProcessWindowStyle.Hidden;
 			Info.CreateNoWindow = true;
 			Info.FileName = "cmd.exe";

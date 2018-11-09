@@ -37,18 +37,18 @@ namespace AutoUpdate
 			this.updateInfo = updateInfo;
 			this.tools = applicationInfo.Tools;
 
-			pictureBox.Image = tools.img;
+			pictureBox.Image = tools.Img;
 
-			this.Text = tools.getString("update_found_title");
+			this.Text = tools.GetString("update_found_title");
 
 			this.lblAppName.Text = this.applicationInfo.ApplicationName;
-			this.lblUpdateAvail.Text = tools.getString("update_found");
-			this.lblNewVersion_label.Text = tools.getString("update_new");
-			this.lblCurVersion_label.Text = tools.getString("update_cur");
-			this.lblDescription.Text = tools.getString("update_description");
+			this.lblUpdateAvail.Text = tools.GetString("update_found");
+			this.lblNewVersion_label.Text = tools.GetString("update_new");
+			this.lblCurVersion_label.Text = tools.GetString("update_cur");
+			this.lblDescription.Text = tools.GetString("update_description");
 
-			this.btnYes.Text = tools.getString("button_ok");
-			this.btnNo.Text = tools.getString("button_cancel");
+			this.btnYes.Text = tools.GetString("button_ok");
+			this.btnNo.Text = tools.GetString("button_cancel");
 
 			// Assigns the icon if it isn't null
 			if (this.applicationInfo.ApplicationIcon != null)

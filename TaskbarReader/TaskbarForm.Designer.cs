@@ -40,14 +40,11 @@
             // content
             // 
             this.content.AutoSize = true;
-            this.content.Location = new System.Drawing.Point(43, 86);
-            this.content.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.content.Location = new System.Drawing.Point(32, 70);
             this.content.Name = "content";
-            this.content.Size = new System.Drawing.Size(198, 17);
+            this.content.Size = new System.Drawing.Size(147, 13);
             this.content.TabIndex = 0;
             this.content.Text = "label1label1label1label1label1";
-            this.content.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Content_MouseClick);
-            this.content.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Content_MouseDoubleClick);
             // 
             // timer
             // 
@@ -75,13 +72,12 @@
             // 
             // TaskbarForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 321);
+            this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.content);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TaskbarForm";
             this.Text = "TaskbarForm";
             this.VisibleChanged += new System.EventHandler(this.TaskbarForm_VisibleChanged);

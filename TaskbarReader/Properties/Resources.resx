@@ -239,34 +239,34 @@
     <value>Remove current bookmark</value>
   </data>
   <data name="en_hotkey10_label" xml:space="preserve">
-    <value>Ctrl+Shift+Delete</value>
+    <value>Ctrl+Shift+D</value>
   </data>
   <data name="en_hotkey1_label" xml:space="preserve">
-    <value>Ctrl+Shift+Right</value>
+    <value>Ctrl+Shift+X</value>
   </data>
   <data name="en_hotkey2" xml:space="preserve">
     <value>Previous line</value>
   </data>
   <data name="en_hotkey2_label" xml:space="preserve">
-    <value>Ctrl+Shift+Left</value>
+    <value>Ctrl+Shift+Z</value>
   </data>
   <data name="en_hotkey3" xml:space="preserve">
     <value>Bookmark current line</value>
   </data>
   <data name="en_hotkey3_label" xml:space="preserve">
-    <value>Ctrl+Shift+Up</value>
+    <value>Ctrl+Shift+A</value>
   </data>
   <data name="en_hotkey4" xml:space="preserve">
     <value>Switch to Bookmark View</value>
   </data>
   <data name="en_hotkey4_label" xml:space="preserve">
-    <value>Ctrl+Shift+Down</value>
+    <value>Ctrl+Shift+S</value>
   </data>
   <data name="en_hotkey5" xml:space="preserve">
     <value>Toggle Bookmark View</value>
   </data>
   <data name="en_hotkey5_label" xml:space="preserve">
-    <value>Ctrl+Shift+X</value>
+    <value>Ctrl+Shift+C</value>
   </data>
   <data name="en_hotkey6" xml:space="preserve">
     <value>Hide / Show TaskbarReader</value>
@@ -284,13 +284,13 @@
     <value>Previous bookmark</value>
   </data>
   <data name="en_hotkey8_label" xml:space="preserve">
-    <value>Ctrl+Shift+Up</value>
+    <value>Ctrl+Shift+A</value>
   </data>
   <data name="en_hotkey9" xml:space="preserve">
     <value>Next bookmark</value>
   </data>
   <data name="en_hotkey9_label" xml:space="preserve">
-    <value>Ctrl+Shift+Down</value>
+    <value>Ctrl+Shift+S</value>
   </data>
   <data name="en_hotkey_button" xml:space="preserve">
     <value>&lt;b&gt;HOTKEYS&lt;/b&gt;</value>
@@ -298,8 +298,8 @@
   <data name="en_hotkey_invalid_pressed" xml:space="preserve">
     <value>Invalid key pressed!</value>
   </data>
-  <data name="en_hotkey_label" xml:space="preserve">
-    <value>Hotkeys</value>
+  <data name="en_hotkey_label3" xml:space="preserve">
+    <value>Keyboard Hotkeys</value>
   </data>
   <data name="en_hotkey_registration_failed" xml:space="preserve">
     <value>Failed to register some of the hot keys!</value>
@@ -488,34 +488,34 @@
     <value>删除当前书签</value>
   </data>
   <data name="zh_hotkey10_label" xml:space="preserve">
-    <value>Ctrl+Shift+Delete</value>
+    <value>Ctrl+Shift+D</value>
   </data>
   <data name="zh_hotkey1_label" xml:space="preserve">
-    <value>Ctrl+Shift+右</value>
+    <value>Ctrl+Shift+X</value>
   </data>
   <data name="zh_hotkey2" xml:space="preserve">
     <value>上一行</value>
   </data>
   <data name="zh_hotkey2_label" xml:space="preserve">
-    <value>Ctrl+Shift+左</value>
+    <value>Ctrl+Shift+Z</value>
   </data>
   <data name="zh_hotkey3" xml:space="preserve">
     <value>添加当前行为书签</value>
   </data>
   <data name="zh_hotkey3_label" xml:space="preserve">
-    <value>Ctrl+Shift+上</value>
+    <value>Ctrl+Shift+A</value>
   </data>
   <data name="zh_hotkey4" xml:space="preserve">
     <value>切换到书签模式</value>
   </data>
   <data name="zh_hotkey4_label" xml:space="preserve">
-    <value>Ctrl+Shift+下</value>
+    <value>Ctrl+Shift+S</value>
   </data>
   <data name="zh_hotkey5" xml:space="preserve">
     <value>切换阅读/书签模式</value>
   </data>
   <data name="zh_hotkey5_label" xml:space="preserve">
-    <value>Ctrl+Shift+X</value>
+    <value>Ctrl+Shift+C</value>
   </data>
   <data name="zh_hotkey6" xml:space="preserve">
     <value>显示/隐藏 TaskbarReader</value>
@@ -533,13 +533,13 @@
     <value>下一个书签</value>
   </data>
   <data name="zh_hotkey8_label" xml:space="preserve">
-    <value>Ctrl+Shift+上</value>
+    <value>Ctrl+Shift+A</value>
   </data>
   <data name="zh_hotkey9" xml:space="preserve">
     <value>上一个书签</value>
   </data>
   <data name="zh_hotkey9_label" xml:space="preserve">
-    <value>Ctrl+Shift+下</value>
+    <value>Ctrl+Shift+S</value>
   </data>
   <data name="zh_hotkey_button" xml:space="preserve">
     <value>&lt;b&gt;热键说明&lt;/b&gt;</value>
@@ -547,8 +547,8 @@
   <data name="zh_hotkey_invalid_pressed" xml:space="preserve">
     <value>热键无效！</value>
   </data>
-  <data name="zh_hotkey_label" xml:space="preserve">
-    <value>热键说明</value>
+  <data name="zh_hotkey_label3" xml:space="preserve">
+    <value>键盘热键</value>
   </data>
   <data name="zh_hotkey_registration_failed" xml:space="preserve">
     <value>一些热键注册失败！</value>
@@ -627,5 +627,59 @@
   </data>
   <data name="zh_hotkey_label1" xml:space="preserve">
     <value>书签模式</value>
+  </data>
+  <data name="en_vertical_not_supported" xml:space="preserve">
+    <value>N&lt;br/&gt;o&lt;br/&gt;t&lt;br/&gt;&lt;br/&gt;S&lt;br/&gt;u&lt;br/&gt;p&lt;br/&gt;p&lt;br/&gt;o&lt;br/&gt;r&lt;br/&gt;t&lt;br/&gt;e&lt;br/&gt;d</value>
+  </data>
+  <data name="zh_vertical_not_supported" xml:space="preserve">
+    <value>不支持竖任务栏</value>
+  </data>
+  <data name="en_hotkey_label" xml:space="preserve">
+    <value>How To...</value>
+  </data>
+  <data name="en_hotkey_label2" xml:space="preserve">
+    <value>Mouse Actions</value>
+  </data>
+  <data name="en_mouse1" xml:space="preserve">
+    <value>Hide / Show TaskbarReader</value>
+  </data>
+  <data name="en_mouse1_label" xml:space="preserve">
+    <value>Left Double Click</value>
+  </data>
+  <data name="en_mouse2" xml:space="preserve">
+    <value>Open TXT</value>
+  </data>
+  <data name="en_mouse2_label" xml:space="preserve">
+    <value>Middle Click</value>
+  </data>
+  <data name="en_mouse3" xml:space="preserve">
+    <value>Show context menu</value>
+  </data>
+  <data name="en_mouse3_label" xml:space="preserve">
+    <value>Right Click</value>
+  </data>
+  <data name="zh_hotkey_label" xml:space="preserve">
+    <value>使用说明</value>
+  </data>
+  <data name="zh_hotkey_label2" xml:space="preserve">
+    <value>鼠标按键</value>
+  </data>
+  <data name="zh_mouse1" xml:space="preserve">
+    <value>显示/隐藏 TaskbarReader</value>
+  </data>
+  <data name="zh_mouse1_label" xml:space="preserve">
+    <value>左键双击</value>
+  </data>
+  <data name="zh_mouse2" xml:space="preserve">
+    <value>打开TXT</value>
+  </data>
+  <data name="zh_mouse2_label" xml:space="preserve">
+    <value>中键单击</value>
+  </data>
+  <data name="zh_mouse3" xml:space="preserve">
+    <value>显示右键菜单</value>
+  </data>
+  <data name="zh_mouse3_label" xml:space="preserve">
+    <value>右键单击</value>
   </data>
 </root>

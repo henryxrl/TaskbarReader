@@ -12,15 +12,15 @@ namespace GenereateUpdateXML
 {
     public partial class Form1 : DevComponents.DotNetBar.Metro.MetroForm
     {
-        private static String project = Directory.GetParent(Path.Combine(Directory.GetCurrentDirectory(), @"..\..")).Name;
-        private static String xml_dir = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..");
-        private static String xml_path = Path.Combine(xml_dir, project + @"_Update.xml");
-        private static String exe_path = Path.Combine(xml_dir, project + @"\bin\Release\" + project + ".exe");
-        private static String exe_name = Path.GetFileName(exe_path);
-        private static String exe_name_no_ext = Path.GetFileNameWithoutExtension(exe_path);
-        private static String exe_URL = "https://raw.githubusercontent.com/henryxrl/" + project + "/master/" + project + "/bin/Release/" + project + ".exe";
-        private static String exe_MD5 = GetMd5(exe_path);
-        private static String exe_ver = FileVersionInfo.GetVersionInfo(exe_path).ProductVersion;
+        private static string project = Directory.GetParent(Path.Combine(Directory.GetCurrentDirectory(), @"..\..")).Name;
+        private static string xml_dir = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..");
+        private static string xml_path = Path.Combine(xml_dir, project + @"_Update.xml");
+        private static string exe_path = Path.Combine(xml_dir, project + @"\bin\Release\" + project + ".exe");
+        private static string exe_name = Path.GetFileName(exe_path);
+        private static string exe_name_no_ext = Path.GetFileNameWithoutExtension(exe_path);
+        private static string exe_URL = "https://raw.githubusercontent.com/henryxrl/" + project + "/master/" + project + "/bin/Release/" + project + ".exe";
+        private static string exe_MD5 = GetMd5(exe_path);
+        private static string exe_ver = FileVersionInfo.GetVersionInfo(exe_path).ProductVersion;
 
         private XmlDocument doc = new XmlDocument();
         private XmlNode root;
@@ -55,25 +55,25 @@ namespace GenereateUpdateXML
 
         private void button1_Click(object sender, EventArgs e)
         {
-            String log = "";
-            String log_en = "";
-            String log_cn = "";
+            string log = "";
+            string log_en = "";
+            string log_cn = "";
 
             var log_en_array = textBox1.Lines;
             if (log_en_array.Length == 0)
                 log_en = "";
             else
-                log_en = String.Join("\n    ", log_en_array);
+                log_en = string.Join("\n    ", log_en_array);
 
             var log_cn_array = textBox2.Lines;
             if (log_cn_array.Length == 0)
                 log_cn = "";
             else
-                log_cn = String.Join("\n    ", log_cn_array);
+                log_cn = string.Join("\n    ", log_cn_array);
 
-            String date = DateTime.Today.ToString("d");
+            string date = DateTime.Today.ToString("d");
 
-            log = String.Concat(date, " Update:\n    ", log_en, "\n\n", date, " 更新：\n    ", log_cn);
+            log = string.Concat(date, " Update:\n    ", log_en, "\n\n", date, " 更新：\n    ", log_cn);
 
             appendNode("description", log);
             doc.Save(xml_path);
@@ -81,7 +81,7 @@ namespace GenereateUpdateXML
             Environment.Exit(1);
         }
 
-        static private String GetMd5(String path)
+        static private string GetMd5(string path)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
             FileStream stream = File.Open(path, FileMode.Open);
@@ -97,7 +97,7 @@ namespace GenereateUpdateXML
             return sb.ToString().ToUpper();
         }
 
-        private void appendNode(String nodeName, String value)
+        private void appendNode(string nodeName, string value)
         {
             XmlNode version = doc.CreateElement(nodeName);
             version.InnerText = value;

@@ -54,7 +54,7 @@ namespace AutoUpdate
 		/// <summary>
 		/// Creates a new AutoUpdateDownloadForm
 		/// </summary>
-		internal AutoUpdateDownloadForm(AutoUpdatable applicationInfo, Uri location, String md5, Icon programIcon)
+		internal AutoUpdateDownloadForm(AutoUpdatable applicationInfo, Uri location, string md5, Icon programIcon)
 		{
 			InitializeComponent();
 
@@ -64,9 +64,9 @@ namespace AutoUpdate
 			if (programIcon != null)
 				this.Icon = programIcon;
 
-			this.Text = applicationInfo.ApplicationName + " - " + tools.getString("update_download");
+			this.Text = applicationInfo.ApplicationName + " - " + tools.GetString("update_download");
 
-			this.lblDownloading.Text = tools.getString("update_downloading");
+			this.lblDownloading.Text = tools.GetString("update_downloading");
 
 			// Set the temp file name and create new 0-byte file
 			tempFile = Path.GetTempFileName();
@@ -99,8 +99,8 @@ namespace AutoUpdate
 		private void webClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
 		{
 			// Update progressbar on download
-			this.lblPercentage.Text = String.Format(tools.getString("update_completed") + " {0}", FormatPercentage(e.BytesReceived, e.TotalBytesToReceive, 0));
-			this.lblProgress.Text = String.Format(tools.getString("update_downloaded") + " {0} / {1}", FormatBytes(e.BytesReceived, 1, true), FormatBytes(e.TotalBytesToReceive, 1, true));
+			this.lblPercentage.Text = string.Format(tools.GetString("update_completed") + " {0}", FormatPercentage(e.BytesReceived, e.TotalBytesToReceive, 0));
+			this.lblProgress.Text = string.Format(tools.GetString("update_downloaded") + " {0} / {1}", FormatBytes(e.BytesReceived, 1, true), FormatBytes(e.TotalBytesToReceive, 1, true));
 			this.progressBar.Value = e.ProgressPercentage;
 		}
 
@@ -119,15 +119,15 @@ namespace AutoUpdate
 			else
 			{
 				// Show the "Hashing" label and set the progressbar to marquee
-				this.lblProgress.Text = tools.getString("update_verifying");
+				this.lblProgress.Text = tools.GetString("update_verifying");
 				this.progressBar.Style = ProgressBarStyle.Marquee;
 
 				// Start the hashing
-				bgWorker.RunWorkerAsync(new String[] { this.tempFile, this.md5 });
+				bgWorker.RunWorkerAsync(new string[] { this.tempFile, this.md5 });
 			}
 		}
 
-		private String FormatPercentage(Int64 bytes1, Int64 bytes2, Int32 decimalPlaces)
+		private string FormatPercentage(long bytes1, long bytes2, int decimalPlaces)
 		{
 			Double newBytes1 = bytes1;
 			Double newBytes2 = bytes2;
@@ -142,11 +142,11 @@ namespace AutoUpdate
 		/// <param name="decimalPlaces">How many decimal places to show</param>
 		/// <param name="showByteType">Add the byte type on the end of the string</param>
 		/// <returns>The bytes formatted as specified</returns>
-		private String FormatBytes(Int64 bytes, Int32 decimalPlaces, Boolean showByteType)
+		private string FormatBytes(long bytes, int decimalPlaces, bool showByteType)
 		{
 			Double newBytes = bytes;
-			String formatString = "{0";
-			String byteType = "B";
+			string formatString = "{0";
+			string byteType = "B";
 
 			// Check if best size in KB
 			if (newBytes > 1024 && newBytes < 1048576)
@@ -172,7 +172,7 @@ namespace AutoUpdate
 				formatString += ":0.";
 
 			// Add decimals
-			for (Int32 i = 0; i < decimalPlaces; i++)
+			for (int i = 0; i < decimalPlaces; i++)
 				formatString += "0";
 
 			// Close placeholder
@@ -182,13 +182,13 @@ namespace AutoUpdate
 			if (showByteType)
 				formatString += byteType;
 
-			return String.Format(formatString, newBytes);
+			return string.Format(formatString, newBytes);
 		}
 
 		private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
 		{
-			String file = ((String[])e.Argument)[0];
-			String updateMD5 = ((String[])e.Argument)[1];
+			string file = ((string[])e.Argument)[0];
+			string updateMD5 = ((string[])e.Argument)[1];
 
 			// Hash the file and compare to the hash in the update xml
 			if (Hash.HashFile(file, HashType.MD5).ToUpper() != updateMD5.ToUpper())

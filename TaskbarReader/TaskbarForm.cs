@@ -20,6 +20,7 @@ namespace TaskbarReader
         private static Taskbar taskbar;
         private static int width = 0;
         private static int height = 0;
+        private static bool isVertical = false;
 
         private static FontFamily fontFamily = new FontFamily("Segoe UI");
         private static Font font = new Font(fontFamily, 8, FontStyle.Regular, GraphicsUnit.Pixel);
@@ -28,12 +29,12 @@ namespace TaskbarReader
 
         private AutoUpdater updater;
 
-        public String ApplicationName
+        public string ApplicationName
         {
             get { return System.Reflection.Assembly.GetExecutingAssembly().GetName().Name; }
         }
 
-        public String ApplicationID
+        public string ApplicationID
         {
             get { return System.Reflection.Assembly.GetExecutingAssembly().GetName().Name; }
         }
@@ -65,36 +66,36 @@ namespace TaskbarReader
 
         #endregion
 
-        #region Window-related variables
+        #region Window-related
 
         // Global hot key
         private KeyboardHook hook = new KeyboardHook();
         [DllImport("user32.dll")]
-        private static extern Boolean UnregisterHotKey(IntPtr hWnd, Int32 id);
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
         #endregion
 
         #region Tools
 
         private static Tools tools = null;
-        private String curLineText;     // Current text shown in windows' title bar
-        private String curLineText_pre;
-        private String curLineText_content;
+        private string curLineText;     // Current text shown in windows' title bar
+        private string curLineText_pre;
+        private string curLineText_content;
 
         #endregion
 
         #region Auto page turn
 
-        private static Int32 aptTime = 0;
-        private static Int32 timerCount;
-        private static Int32 timerFlag = -1;   // 0: auto read forward; 1: auto read backward; 2: go back to current; -1: default
+        private static int aptTime = 0;
+        private static int timerCount;
+        private static int timerFlag = -1;   // 0: auto read forward; 1: auto read backward; 2: go back to current; -1: default
 
         #endregion
 
         #region TXT
 
-        private String txt_URL;
-        private String TXTURL       // Properties. Triggers when value changed
+        private string txt_URL;
+        private string TXTURL       // Properties. Triggers when value changed
         {
             get { return this.txt_URL; }
             set
@@ -109,22 +110,22 @@ namespace TaskbarReader
             }
         }
 
-        private String txt_name;
-        private String[] txt_book;
-        private Int32 totalLineNum;     // 1-based. Total line number
-        private Int32 curLineNum;       // 1-based. Need to minus 1 to get current line index
-        private Int32 lineOffset;       // 0-based. character index of a line
-        private Int32 lineOffset_OLD;
+        private string txt_name;
+        private string[] txt_book;
+        private int totalLineNum;     // 1-based. Total line number
+        private int curLineNum;       // 1-based. Need to minus 1 to get current line index
+        private int lineOffset;       // 0-based. character index of a line
+        private int lineOffset_OLD;
 
         #endregion
 
         #region Bookmark
 
-        private List<Tuple<Int32, Int32>> bookmarks;        // 1) curLineNum; 2) lineOffset
-        private Int32 bookmark_idx = 0;
-        private Int32 bookmark_count;
-        private Boolean isBookmarkView = false;
-        private Boolean BookmarkView
+        private List<Tuple<int, int>> bookmarks;        // 1) curLineNum; 2) lineOffset
+        private int bookmark_idx = 0;
+        private int bookmark_count;
+        private bool isBookmarkView = false;
+        private bool BookmarkView
         {
             get { return this.isBookmarkView; }
             set
@@ -149,8 +150,8 @@ namespace TaskbarReader
             }
         }
 
-        private Int32 prevLineNum = -1;
-        private Int32 prevLineOffset = -1;
+        private int prevLineNum = -1;
+        private int prevLineOffset = -1;
 
         #endregion
 
@@ -165,31 +166,8 @@ namespace TaskbarReader
             SetTools();
 
             taskbar = TaskBarFactory.GetTaskbar();
-            width = taskbar.Rectangle.Right - taskbar.Rectangle.Left;
-            height = taskbar.Rectangle.Bottom - taskbar.Rectangle.Top;
-            this.Size = new Size(width, height);
-            Console.WriteLine(string.Format("Width: {0}; Height: {1}", width, height));
-
-            Color c = GetPixelColor(taskbar.Handle, 0, 0);
-            this.BackColor = c;
-            Console.WriteLine("Background color: " + this.BackColor);
-            this.ForeColor = Color.FromArgb(c.R > 127 ? 0 : 255, c.G > 127 ? 0 : 255, c.B > 127 ? 0 : 255);
-            Console.WriteLine("Text color: " + this.ForeColor);
-
-            
-            content.TextAlign = ContentAlignment.MiddleLeft;
-            font = new Font(font.FontFamily, GetProperFontSize(), font.Style, font.Unit);
-            content.Font = font;
-
-            //content.Dock = DockStyle.Fill;
-            content.AutoSize = false;
-            content.Size = new Size(width, height);
-            content.MaximumSize = new Size(width, height);
-            content.MinimumSize = new Size(width, height);
-            content.Location = new Point(0, 0);
-
-            content.Text = tools.getString("openFileDialog_title");
-
+            taskbar.SizeChanged = TaskbarSizeChanged;
+            SetupTaskbarForm();
             LaunchInTaskBar();
 
             BuildContextMenuStrip();
@@ -201,52 +179,105 @@ namespace TaskbarReader
             updater = new AutoUpdater(this);
             updater.DoUpdate(true);
 
-            #region Register HotKeys
-            // register the event that is fired after the key press.
-            hook.KeyPressed += new EventHandler<KeyPressedEventArgs>(Hook_KeyPressed);
+            RegisterHotkeys();
+        }
 
-            try
+        private void SetTools()
+        {
+            // themeColor
+            Color themeColor = Color.FromArgb(40, 100, 130);
+            Color foreColor = Color.FromArgb(220, 220, 220);
+            Color backColor = Color.FromArgb(36, 36, 36);
+
+            // langCode
+            string langCode;
+            string curLang = System.Globalization.CultureInfo.CurrentCulture.ToString();
+            bool isChinese = curLang.Contains("zh") ? true : false;
+            if (isChinese)  //in chinese
             {
-                // ctrl+shift+q = quit
-                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.Q);
-
-                // ctrl+shift+right = next line
-                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.Right);
-
-                // ctrl+shift+left = prev line
-                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.Left);
-
-                // ctrl+shift+up = bookmark cur loc
-                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.Up);
-
-                // ctrl+shift+down = switch to bookmark view
-                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.Down);
-
-                // ctrl+shift+delete = delete current bookmark
-                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.Delete);
-
-                // ctrl+shift+space = toggle hide/show
-                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.Space);
-
-                // ctrl+shift+x = toggle bookmark view
-                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.X);
+                langCode = "zh_";
             }
-            catch
+            else    //in english
             {
-                MessageBox.Show(tools.getString("hotkey_registration_failed"));
+                langCode = "en_";
             }
-            #endregion
+
+            // set tools
+            tools = new Tools(themeColor, foreColor, backColor, langCode);
+        }
+
+        private void TaskbarSizeChanged()
+        {
+            Console.WriteLine("Taskbar size changed");
+            if (this != null && taskbar != null)
+                SetupTaskbarForm(1);
+        }
+
+        private void SetupTaskbarForm(int flag = 0)
+        {
+            width = taskbar.Rectangle.Right - taskbar.Rectangle.Left;
+            height = taskbar.Rectangle.Bottom - taskbar.Rectangle.Top;
+            this.Size = new Size(width, height);
+            isVertical = height > width;
+            Console.WriteLine(string.Format("Width: {0}; Height: {1}", width, height));
+
+            content.MouseClick += Content_MouseClick;
+            content.MouseDoubleClick += Content_MouseDoubleClick;
+
+            //content.Dock = DockStyle.Fill;
+            content.AutoSize = false;
+            content.Size = new Size(width, height);
+            content.MaximumSize = new Size(width, height);
+            content.MinimumSize = new Size(width, height);
+            content.Location = new Point(0, 0);
+
+            if (flag == 0)
+            {
+                Color c = GetPixelColor(taskbar.Handle, 0, 0);
+                this.BackColor = c;
+                Console.WriteLine("Background color: " + this.BackColor);
+                this.ForeColor = Color.FromArgb(c.R > 127 ? 0 : 255, c.G > 127 ? 0 : 255, c.B > 127 ? 0 : 255);
+                Console.WriteLine("Text color: " + this.ForeColor);
+            }
+
+            if (isVertical)
+            {
+                content.TextAlign = ContentAlignment.TopCenter;
+                font = new Font(font.FontFamily, GetProperFontSize(), font.Style, font.Unit);
+                content.Font = font;
+                content.Text = string.Join(Environment.NewLine, tools.GetString("vertical_not_supported").Split(new string[] { "<br/>" }, StringSplitOptions.None)); ;
+            }
+            else
+            {
+                content.TextAlign = ContentAlignment.MiddleLeft;
+                font = new Font(font.FontFamily, GetProperFontSize(), font.Style, font.Unit);
+                content.Font = font;
+                content.Text = tools.GetString("openFileDialog_title");
+            }
+        }
+
+        private async void LaunchInTaskBar()
+        {
+            var process = await taskbar.AddToTaskbar(System.Diagnostics.Process.GetCurrentProcess());
+            process.SetPosition(0, 0);
         }
 
         private void BuildContextMenuStrip()
         {
             contextMenuStrip.Items.Clear();
-            contextMenuStrip.Items.Add(tools.getString("openFile"), null, OpenFileClick);
-            var historyItem = new ToolStripMenuItem(tools.getString("history"));
-            List<string> history = tools.loadHistory();
+
+            if (isVertical)
+            {
+                contextMenuStrip.Items.Add(tools.GetString("exit"), null, ExitClick);
+                return;
+            }
+
+            contextMenuStrip.Items.Add(tools.GetString("openFile"), null, OpenFileClick);
+            var historyItem = new ToolStripMenuItem(tools.GetString("history"));
+            List<string> history = tools.LoadHistory();
             if (history == null || history.Count == 0 || (history.Count == 1 && history[0].CompareTo("") == 0))
             {
-                ToolStripMenuItem historySubItem = new ToolStripMenuItem(tools.getString("history_none"));
+                ToolStripMenuItem historySubItem = new ToolStripMenuItem(tools.GetString("history_none"));
                 historySubItem.Enabled = false;
                 historyItem.DropDownItems.Add(historySubItem);
             }
@@ -261,20 +292,20 @@ namespace TaskbarReader
 
                 // clear history
                 historyItem.DropDownItems.Add("-");
-                ToolStripMenuItem clearHistorySubItem1 = new ToolStripMenuItem(tools.getString("history_clearinvalid"));
+                ToolStripMenuItem clearHistorySubItem1 = new ToolStripMenuItem(tools.GetString("history_clearinvalid"));
                 clearHistorySubItem1.Click += HistoryClearInvalidClick;
                 historyItem.DropDownItems.Add(clearHistorySubItem1);
                 historyItem.DropDownItems.Add("-");
-                ToolStripMenuItem clearHistorySubItem2 = new ToolStripMenuItem(tools.getString("history_clearall"));
+                ToolStripMenuItem clearHistorySubItem2 = new ToolStripMenuItem(tools.GetString("history_clearall"));
                 clearHistorySubItem2.Click += HistoryClearAllClick;
                 historyItem.DropDownItems.Add(clearHistorySubItem2);
             }
             contextMenuStrip.Items.Add(historyItem);
-            var bookmarksItem = new ToolStripMenuItem(tools.getString("bookmarks"));
-            bookmarks = tools.loadBookMarks();
+            var bookmarksItem = new ToolStripMenuItem(tools.GetString("bookmarks"));
+            bookmarks = tools.LoadBookMarks();
             if (bookmarks == null || bookmarks.Count == 0)
             {
-                ToolStripMenuItem bookmarksSubItem = new ToolStripMenuItem(tools.getString("bookmarks_none"));
+                ToolStripMenuItem bookmarksSubItem = new ToolStripMenuItem(tools.GetString("bookmarks_none"));
                 bookmarksSubItem.Enabled = false;
                 bookmarksItem.DropDownItems.Add(bookmarksSubItem);
             }
@@ -292,53 +323,61 @@ namespace TaskbarReader
 
                 // clear bookmarks
                 bookmarksItem.DropDownItems.Add("-");
-                ToolStripMenuItem clearBookmarksSubItem = new ToolStripMenuItem(tools.getString("bookmarks_clearall"));
+                ToolStripMenuItem clearBookmarksSubItem = new ToolStripMenuItem(tools.GetString("bookmarks_clearall"));
                 clearBookmarksSubItem.Click += BookmarksClearAllClick;
                 bookmarksItem.DropDownItems.Add(clearBookmarksSubItem);
             }
             contextMenuStrip.Items.Add(bookmarksItem);
-            contextMenuStrip.Items.Add(tools.getString("apt_label"), null, APTClick);
+            contextMenuStrip.Items.Add(tools.GetString("apt_label"), null, APTClick);
             contextMenuStrip.Items.Add("-");
-            contextMenuStrip.Items.Add(tools.getString("hotkey_label"), null, HotkeysClick);
-            contextMenuStrip.Items.Add(tools.getString("about_label"), null, AboutClick);
+            contextMenuStrip.Items.Add(tools.GetString("hotkey_label"), null, HotkeysClick);
+            contextMenuStrip.Items.Add(tools.GetString("about_label"), null, AboutClick);
             contextMenuStrip.Items.Add("-");
-            contextMenuStrip.Items.Add(tools.getString("hideshow"), null, HideshowClick);
-            contextMenuStrip.Items.Add(tools.getString("exit"), null, ExitClick);
+            contextMenuStrip.Items.Add(tools.GetString("hideshow"), null, HideshowClick);
+            contextMenuStrip.Items.Add(tools.GetString("exit"), null, ExitClick);
         }
 
-        private void SetTools()
+        private void RegisterHotkeys()
         {
-            // themeColor
-            Color themeColor = Color.FromArgb(40, 100, 130);
-            Color foreColor = Color.FromArgb(220, 220, 220);
-            Color backColor = Color.FromArgb(36, 36, 36);
+            // register the event that is fired after the key press.
+            hook.KeyPressed += new EventHandler<KeyPressedEventArgs>(Hook_KeyPressed);
 
-            // langCode
-            String langCode;
-            String curLang = System.Globalization.CultureInfo.CurrentCulture.ToString();
-            Boolean isChinese = curLang.Contains("zh") ? true : false;
-            if (isChinese)  //in chinese
+            try
             {
-                langCode = "zh_";
+                // ctrl+shift+q = quit
+                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.Q);
+
+                // ctrl+shift+X = next line
+                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.X);
+
+                // ctrl+shift+Z = prev line
+                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.Z);
+
+                // ctrl+shift+A = bookmark cur loc
+                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.A);
+
+                // ctrl+shift+S = switch to bookmark view
+                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.S);
+
+                // ctrl+shift+D = delete current bookmark
+                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.D);
+
+                // ctrl+shift+space = toggle hide/show
+                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.Space);
+
+                // ctrl+shift+C = toggle bookmark view
+                hook.RegisterHotKey(global::ModifierKeys.Control | global::ModifierKeys.Shift, Keys.C);
             }
-            else    //in english
+            catch
             {
-                langCode = "en_";
+                MessageBox.Show(tools.GetString("hotkey_registration_failed"));
             }
-
-            // set tools
-            tools = new Tools(themeColor, foreColor, backColor, langCode);
         }
-
-        private async void LaunchInTaskBar()
-        {
-            var process = await taskbar.AddToTaskbar(System.Diagnostics.Process.GetCurrentProcess());
-            process.SetPosition(0, 0);
-        }
-
+        
         private float GetProperFontSize()
         {
-            double idealPixelSize = Math.Floor(height * 0.8f);
+            int standard = Math.Min(height, width);
+            double idealPixelSize = Math.Floor(standard * 0.8f);
             int ascent = fontFamily.GetCellAscent(font.Style);
             int descent = fontFamily.GetCellDescent(font.Style);
 
@@ -389,8 +428,8 @@ namespace TaskbarReader
                 Label textLabel = new Label() { Left = 50, Top = 20, Text = text, AutoSize = true };
                 NumericUpDown inputBox = new NumericUpDown() { Left = 50, Top = 50, Width = 360 };
                 inputBox.Value = aptTime;
-                Label textLabel2 = new Label() { Left = 420, Top = 50, Text = tools.getString("apt_label_sec"), AutoSize = true };
-                Button confirmation = new Button() { Text = tools.getString("button_ok"), Left = 350, Width = 100, Height = 30, Top = 100 };
+                Label textLabel2 = new Label() { Left = 420, Top = 50, Text = tools.GetString("apt_label_sec"), AutoSize = true };
+                Button confirmation = new Button() { Text = tools.GetString("button_ok"), Left = 350, Width = 100, Height = 30, Top = 100 };
                 confirmation.Click += (sender, e) => { prompt.Close(); };
                 confirmation.FlatStyle = FlatStyle.Flat;
                 prompt.Controls.Add(confirmation);
@@ -425,7 +464,10 @@ namespace TaskbarReader
 
         private void Content_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            HideShow();
+            if (e.Button == MouseButtons.Left)
+            {
+                HideShow();
+            }
         }
 
         private void OpenFileClick(object sender, EventArgs e)
@@ -443,22 +485,22 @@ namespace TaskbarReader
 
         private void HistoryClearInvalidClick(object sender, EventArgs e)
         {
-            List<string> history = tools.loadHistory();
+            List<string> history = tools.LoadHistory();
             foreach (string s in history)
             {
                 if (!File.Exists(s))
                 {
-                    tools.deleteBook(s);
+                    tools.DeleteBook(s);
                 }
             }
         }
 
         private void HistoryClearAllClick(object sender, EventArgs e)
         {
-            List<string> history = tools.loadHistory();
+            List<string> history = tools.LoadHistory();
             foreach (string s in history)
             {
-                tools.deleteBook(s);
+                tools.DeleteBook(s);
             }
         }
 
@@ -474,8 +516,8 @@ namespace TaskbarReader
             int e2 = subItem.Text.IndexOf(')');
             int l2 = e2 - s2;
             //MessageBox.Show(string.Format("{0}, {1}", subItem.Text.Substring(s1, l1), subItem.Text.Substring(s2, l2)));
-            bookmark_idx = Int32.Parse(subItem.Text.Substring(s1, l1)) - 1;
-            bookmark_count = Int32.Parse(subItem.Text.Substring(s2, l2));
+            bookmark_idx = int.Parse(subItem.Text.Substring(s1, l1)) - 1;
+            bookmark_count = int.Parse(subItem.Text.Substring(s2, l2));
             curLineNum = bookmarks[bookmark_idx].Item1;
             lineOffset = bookmarks[bookmark_idx].Item2;
             lineOffset_OLD = lineOffset;
@@ -546,7 +588,7 @@ namespace TaskbarReader
                 }
                 else    // timerFlag == -1
                 {
-                    MessageBox.Show(tools.getString("timer_error"));
+                    MessageBox.Show(tools.GetString("timer_error"));
                 }
             }
         }
@@ -618,20 +660,23 @@ namespace TaskbarReader
 
         private void OpenFile()
         {
-            timerCount = -1;    // pause
-
-            openFileDialog.Title = tools.getString("openFileDialog_title");
-            openFileDialog.Filter = tools.getString("openFileDialog_filter");
-
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            if (!isVertical)
             {
-                TXTURL = openFileDialog.FileName;
-                //MessageBox.Show(txt_URL);
-                ProcessBook();
-                return;
-            }
+                timerCount = -1;    // pause
 
-            timerCount = aptTime;    // resume
+                openFileDialog.Title = tools.GetString("openFileDialog_title");
+                openFileDialog.Filter = tools.GetString("openFileDialog_filter");
+
+                if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    TXTURL = openFileDialog.FileName;
+                    //MessageBox.Show(txt_URL);
+                    ProcessBook();
+                    return;
+                }
+
+                timerCount = aptTime;    // resume
+            }
         }
 
         private void HideShow()
@@ -642,23 +687,33 @@ namespace TaskbarReader
 
         private void QuitTaskBarReader()
         {
-            SaveCurProgess();
+            //SaveCurProgess();
             //restorePrevTitle();
             //StopListeningForWindowResize();
             //StopListeningForWindowSwitch();
-            Application.Exit();
+
+            if (Application.MessageLoop)
+            {
+                // WinForms app
+                Application.Exit();
+            }
+            else
+            {
+                // Console app
+                Environment.Exit(1);
+            }
         }
 
         private void Hook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
             // Show the keys pressed in a label.
-            String key = e.Key.ToString();
-            //String keyComb = e.Modifier.ToString() + " + " + key;
+            string key = e.Key.ToString();
+            //string keyComb = e.Modifier.ToString() + " + " + key;
             //MessageBox.Show(keyComb);
 
             switch (key)
             {
-                case "Up":
+                case "A":
                     if (!isBookmarkView)
                     {
                         AddBookMark();
@@ -668,7 +723,7 @@ namespace TaskbarReader
                         JumpThroughBookMarks(-1);
                     }
                     break;
-                case "Down":
+                case "S":
                     if (!isBookmarkView)
                     {
                         ToggleBookmarkView();
@@ -678,10 +733,10 @@ namespace TaskbarReader
                         JumpThroughBookMarks(1);
                     }
                     break;
-                case "Left":
+                case "Z":
                     ReadBackward();
                     break;
-                case "Right":
+                case "X":
                     ReadForward();
                     break;
                 case "Q":
@@ -690,14 +745,14 @@ namespace TaskbarReader
                 case "Space":
                     HideShow();
                     break;
-                case "X":
+                case "C":
                     ToggleBookmarkView();
                     break;
-                case "Delete":
+                case "D":
                     DeleteCurBookMark();
                     break;
                 default:
-                    MessageBox.Show(tools.getString("hotkey_invalid_pressed"));
+                    MessageBox.Show(tools.GetString("hotkey_invalid_pressed"));
                     break;
             }
         }
@@ -707,7 +762,7 @@ namespace TaskbarReader
         #region Reader functions
 
         // flag == -1: read backward; flag == 0: read again; flag == 1: read forward; flag == 2: bookmarks
-        private void JumpToLine(Int32 flag)
+        private void JumpToLine(int flag)
         {
             Double progress = (Double)curLineNum / (Double)totalLineNum * 100;
 
@@ -720,10 +775,10 @@ namespace TaskbarReader
             else
             {
                 BookmarkView = false;
-                curLineText_pre = String.Format("({0:0.0}%) ", progress);
+                curLineText_pre = string.Format("({0:0.0}%) ", progress);
             }
 
-            Int32 curLine_idx = curLineNum - 1;
+            int curLine_idx = curLineNum - 1;
             if (curLine_idx >= 0 && curLine_idx < txt_book.Count())
             {
                 curLineText_content = txt_book[curLine_idx].Trim();
@@ -740,12 +795,12 @@ namespace TaskbarReader
             {
                 if ((curLine_idx) < 0)
                 {
-                    SetText(tools.getString("readbackward_nomore"));
+                    SetText(tools.GetString("readbackward_nomore"));
                     curLineNum = 1;
                 }
                 else
                 {
-                    SetText(tools.getString("readforward_nomore"));
+                    SetText(tools.GetString("readforward_nomore"));
                     curLineNum = txt_book.Count();
                 }
 
@@ -808,7 +863,7 @@ namespace TaskbarReader
 
         private void LoadCurProgess()
         {
-            Tuple<int, int> progress = tools.loadCurLoc();
+            Tuple<int, int> progress = tools.LoadCurLoc();
             curLineNum = progress.Item1;
             lineOffset = progress.Item2;
             lineOffset_OLD = lineOffset;
@@ -816,20 +871,20 @@ namespace TaskbarReader
 
         private void SaveCurProgess()
         {
-            tools.writeCurLoc(curLineNum, lineOffset_OLD);
+            tools.WriteCurLoc(curLineNum, lineOffset_OLD);
         }
 
         private void AddBookMark()
         {
             if (txt_URL != null)
             {
-                if (tools.writeBookMark(curLineNum, lineOffset_OLD))
+                if (tools.WriteBookMark(curLineNum, lineOffset_OLD))
                 {
-                    SetText(tools.getString("bookmark_added"));
+                    SetText(tools.GetString("bookmark_added"));
                 }
                 else
                 {
-                    SetText(tools.getString("bookmark_exists"));
+                    SetText(tools.GetString("bookmark_exists"));
                 }
 
                 // timer here to go back to reading in 3 secs
@@ -840,14 +895,14 @@ namespace TaskbarReader
         }
 
         // flag == -1: previous bookmark; flag == 0: current bookmark; flag == 1: next bookmark
-        private void JumpThroughBookMarks(Int32 flag)
+        private void JumpThroughBookMarks(int flag)
         {
             if (txt_URL != null)
             {
-                bookmarks = tools.loadBookMarks();
+                bookmarks = tools.LoadBookMarks();
                 if (bookmarks == null || bookmarks.Count == 0)
                 {
-                    SetText(tools.getString("bookmark_none"));
+                    SetText(tools.GetString("bookmark_none"));
 
                     // timer here to go back to reading in 3 secs
                     timer.Enabled = true;
@@ -893,12 +948,12 @@ namespace TaskbarReader
         {
             if (txt_URL != null && isBookmarkView)
             {
-                if (tools.deleteBookMark(curLineNum, lineOffset_OLD))
+                if (tools.DeleteBookMark(curLineNum, lineOffset_OLD))
                 {
-                    bookmarks = tools.loadBookMarks();
+                    bookmarks = tools.LoadBookMarks();
                     if (bookmarks == null || bookmarks.Count == 0)
                     {
-                        SetText(tools.getString("bookmark_all_deleted"));
+                        SetText(tools.GetString("bookmark_all_deleted"));
 
                         // timer here to go back to reading in 3 secs
                         timer.Enabled = true;
@@ -925,7 +980,7 @@ namespace TaskbarReader
                 }
                 else
                 {
-                    SetText(tools.getString("bookmark_delete_error"));
+                    SetText(tools.GetString("bookmark_delete_error"));
 
                     // timer here to go back to reading in 3 secs
                     timer.Enabled = true;
@@ -939,12 +994,12 @@ namespace TaskbarReader
         {
             if (txt_URL != null)
             {
-                if (tools.deleteBookMark(lineNum, offset))
+                if (tools.DeleteBookMark(lineNum, offset))
                 {
-                    bookmarks = tools.loadBookMarks();
+                    bookmarks = tools.LoadBookMarks();
                     if (bookmarks == null || bookmarks.Count == 0)
                     {
-                        SetText(tools.getString("bookmark_all_deleted"));
+                        SetText(tools.GetString("bookmark_all_deleted"));
 
                         // timer here to go back to reading in 3 secs
                         timer.Enabled = true;
@@ -956,7 +1011,7 @@ namespace TaskbarReader
                 }
                 else
                 {
-                    SetText(tools.getString("bookmark_delete_error"));
+                    SetText(tools.GetString("bookmark_delete_error"));
 
                     // timer here to go back to reading in 3 secs
                     timer.Enabled = true;
@@ -1003,7 +1058,7 @@ namespace TaskbarReader
                 string trailing = length > length_safe ? "" : "...";
                 bookmark_preview = bookmark_preview.Substring(0, length_safe);
                 // Truncate substring at word
-                Int32 newIdx = bookmark_preview.LastIndexOf(" ", length_safe - 1, length_safe);
+                int newIdx = bookmark_preview.LastIndexOf(" ", length_safe - 1, length_safe);
                 bookmark_preview = ((newIdx > 0) ? bookmark_preview.Substring(0, newIdx) : bookmark_preview) + trailing;
             }
             return bookmark_preview;
@@ -1013,7 +1068,7 @@ namespace TaskbarReader
 
         #region Helper functions
 
-        private void SetText(String s)
+        private void SetText(string s)
         {
             content.Text = s;
         }
@@ -1023,7 +1078,7 @@ namespace TaskbarReader
             try
             {
                 txt_book = File.ReadAllLines(txt_URL, Encoding.Default)
-                    .Where(arg => !String.IsNullOrWhiteSpace(arg)).ToArray();
+                    .Where(arg => !string.IsNullOrWhiteSpace(arg)).ToArray();
                 //txt_name = Path.GetFileNameWithoutExtension(txt_URL);
                 txt_name = Path.GetFullPath(txt_URL);
                 totalLineNum = txt_book.Count();
@@ -1036,30 +1091,30 @@ namespace TaskbarReader
 
                 LoadCurProgess();
                 ReadCurrentLine();
-                bookmarks = tools.loadBookMarks();
+                bookmarks = tools.LoadBookMarks();
                 bookmark_idx = 0;
             }
             catch
             {
-                tools.deleteBook(txt_URL);
+                tools.DeleteBook(txt_URL);
                 return;
             }
         }
 
-        private String TruncatePixelLength(String pre, String line, Int32 startIdx)
+        private string TruncatePixelLength(string pre, string line, int startIdx)
         {
             // Update lineOffset_OLD
             lineOffset_OLD = startIdx;
 
-            String content = line.Substring(startIdx);
-            String input = pre + content;
-            Int32 safty_value = MeasureDisplayStringWidth(pre + pre + "......");
+            string content = line.Substring(startIdx);
+            string input = pre + content;
+            int safty_value = MeasureDisplayStringWidth(pre + pre + "......");
 
             // If everything fits, return
             //Console.WriteLine("Text length: " + TextRenderer.MeasureText(input, SystemFonts.CaptionFont).Width);
             //Console.WriteLine("Text length2: " + MeasureDisplayStringWidth(input, SystemFonts.CaptionFont));
-            //Int32 stringLengthInPixel = TextRenderer.MeasureText(input, SystemFonts.CaptionFont).Width;
-            Int32 stringLengthInPixel = MeasureDisplayStringWidth(input);
+            //int stringLengthInPixel = TextRenderer.MeasureText(input, SystemFonts.CaptionFont).Width;
+            int stringLengthInPixel = MeasureDisplayStringWidth(input);
             //Console.WriteLine("stringLengthInPixel: " + stringLengthInPixel);
             if (stringLengthInPixel < width - safty_value)
             {
@@ -1068,11 +1123,11 @@ namespace TaskbarReader
             }
 
             // If not, calculate max substring that fits
-            //Int32 newLength = length - TextRenderer.MeasureText(pre + "...", SystemFonts.CaptionFont).Width;
-            Int32 newLength = width - safty_value;  // just to be safe
+            //int newLength = length - TextRenderer.MeasureText(pre + "...", SystemFonts.CaptionFont).Width;
+            int newLength = width - safty_value;  // just to be safe
             //Console.WriteLine("newLength: " + newLength);
-            Int32 tempLength = 0;
-            Int32 idx = 0;
+            int tempLength = 0;
+            int idx = 0;
             for (; idx < content.Length - 1 && tempLength < newLength; idx++)
             {
                 //tempLength = TextRenderer.MeasureText(content.Substring(0, idx + 1), SystemFonts.CaptionFont).Width;
@@ -1086,7 +1141,7 @@ namespace TaskbarReader
             //Console.WriteLine("tempLength2: " + tempLength);
 
             // Truncate substring at word
-            Int32 newIdx = content.LastIndexOf(" ", idx, idx + 1);
+            int newIdx = content.LastIndexOf(" ", idx, idx + 1);
             idx = (newIdx > 0) ? newIdx : idx;
 
             // Update lineOffset
@@ -1100,9 +1155,9 @@ namespace TaskbarReader
             return result;
         }
 
-        private Int32 MeasureDisplayStringWidth(String text)
+        private int MeasureDisplayStringWidth(string text)
         {
-            Int32 result = 0;
+            int result = 0;
             //using (Graphics graphics = this.CreateGraphics())
             //{
             //    /*
@@ -1115,19 +1170,19 @@ namespace TaskbarReader
 
             //    regions = graphics.MeasureCharacterRanges(text, font, rect, format);
             //    rect = regions[0].GetBounds(graphics);
-            //    result = (Int32)(rect.Right + 1.0f);
+            //    result = (int)(rect.Right + 1.0f);
             //    */
 
             //    Single doubleWidth = graphics.MeasureString(text + text, font).Width;
             //    Single singleWidth = graphics.MeasureString(text, font).Width;
-            //    result = (Int32)(doubleWidth - singleWidth);
+            //    result = (int)(doubleWidth - singleWidth);
             //    Console.WriteLine("graphics measure: " + result);
             //}
 
             // draw in label, use textrenderer
             var ddoubleWidth = TextRenderer.MeasureText(text + text, font).Width;
             var ssingleWidth = TextRenderer.MeasureText(text, font).Width;
-            result = (Int32)(ddoubleWidth - ssingleWidth);
+            result = (int)(ddoubleWidth - ssingleWidth);
             //Console.WriteLine("textrenderer measure: " + result);
 
             return result;

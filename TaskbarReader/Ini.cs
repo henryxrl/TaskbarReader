@@ -11,20 +11,20 @@ namespace Ini
 	/// </summary>
 	public class IniFile
 	{
-		public String path;
+		public string path;
 
 		[DllImport("kernel32")]
-		private static extern Int64 WritePrivateProfileString(String section, String key, String val, String filePath);
+		private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
 		[DllImport("kernel32")]
-		private static extern Int32 GetPrivateProfileString(String section, String key, String def, StringBuilder retVal, Int32 size, String filePath);
+		private static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
         [DllImport("kernel32")]
-        private static extern Int32 GetPrivateProfileSectionNames(Byte[] lpszReturnBuffer, Int32 nSize, String lpFileName);
+        private static extern int GetPrivateProfileSectionNames(byte[] lpszReturnBuffer, int nSize, string lpFileName);
 
         /// <summary>
         /// INIFile Constructor.
         /// </summary>
         /// <param name="INIPath"></param>
-        public IniFile(String INIPath)
+        public IniFile(string INIPath)
 		{
 			path = INIPath;
 		}
@@ -37,12 +37,12 @@ namespace Ini
 		/// Key Name
 		/// <param name="Value"></param>
 		/// Value Name
-		public void IniWriteValue(String Section, String Key, String Value)
+		public void IniWriteValue(string Section, string Key, string Value)
 		{
 			WritePrivateProfileString(Section, Key, Value, this.path);
 		}
 
-        public void IniRemoveSection(String Section)
+        public void IniRemoveSection(string Section)
         {
             WritePrivateProfileString(Section, null, null, this.path);
         }
@@ -54,10 +54,10 @@ namespace Ini
 		/// <param name="Key"></param>
 		/// <param name="Path"></param>
 		/// <returns></returns>
-		public String IniReadValue(String Section, String Key)
+		public string IniReadValue(string Section, string Key)
 		{
 			StringBuilder temp = new StringBuilder(255);
-			Int32 i = GetPrivateProfileString(Section, Key, "", temp, 255, this.path);
+			int i = GetPrivateProfileString(Section, Key, "", temp, 255, this.path);
 			return temp.ToString();
 		}
 
