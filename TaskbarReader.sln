@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskbarReader", "TaskbarReader\TaskbarReader.csproj", "{773BE9D7-E5AD-46D6-AAC3-7C16E20C3553}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenereateUpdateXML", "GenereateUpdateXML\GenereateUpdateXML.csproj", "{A3C7B41A-08B3-4DC6-8662-F410E5BAF418}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskbarHook", "TaskbarHook\TaskbarHook.csproj", "{854641A8-D4F1-4230-9C1A-03F881DD3FF7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{773BE9D7-E5AD-46D6-AAC3-7C16E20C3553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{773BE9D7-E5AD-46D6-AAC3-7C16E20C3553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{773BE9D7-E5AD-46D6-AAC3-7C16E20C3553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{773BE9D7-E5AD-46D6-AAC3-7C16E20C3553}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3C7B41A-08B3-4DC6-8662-F410E5BAF418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3C7B41A-08B3-4DC6-8662-F410E5BAF418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3C7B41A-08B3-4DC6-8662-F410E5BAF418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3C7B41A-08B3-4DC6-8662-F410E5BAF418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{854641A8-D4F1-4230-9C1A-03F881DD3FF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{854641A8-D4F1-4230-9C1A-03F881DD3FF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{854641A8-D4F1-4230-9C1A-03F881DD3FF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{854641A8-D4F1-4230-9C1A-03F881DD3FF7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D1FA5147-1022-4081-9ECA-4366B332025D}
+	EndGlobalSection
+EndGlobal

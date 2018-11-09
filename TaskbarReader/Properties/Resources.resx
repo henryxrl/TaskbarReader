@@ -1,0 +1,631 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\clock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="en_about_author_label" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="en_about_button" xml:space="preserve">
+    <value>&lt;b&gt;ABOUT&lt;/b&gt;</value>
+  </data>
+  <data name="en_about_email_label" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="en_about_intro" xml:space="preserve">
+    <value>Read TXT in Taskbar!&lt;br/&gt;Thank you for your support!</value>
+  </data>
+  <data name="en_about_intro_label" xml:space="preserve">
+    <value>Intro</value>
+  </data>
+  <data name="en_about_label" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="en_about_version_label" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="en_apt_end_label" xml:space="preserve">
+    <value>30 (sec)</value>
+  </data>
+  <data name="en_apt_label" xml:space="preserve">
+    <value>Auto Page Turn</value>
+  </data>
+  <data name="en_apt_label2" xml:space="preserve">
+    <value>Auto Page Turn Settings</value>
+  </data>
+  <data name="en_apt_label_sec" xml:space="preserve">
+    <value>sec</value>
+  </data>
+  <data name="en_apt_start_label" xml:space="preserve">
+    <value>0 (sec)&lt;br/&gt;Manual</value>
+  </data>
+  <data name="en_apt_tooltip" xml:space="preserve">
+    <value>(sec)</value>
+  </data>
+  <data name="en_autoUpdater_msg_failed" xml:space="preserve">
+    <value>Update failed!&lt;br/&gt;Please try again later!</value>
+  </data>
+  <data name="en_autoUpdater_msg_failed_title" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="en_autoUpdater_msg_success" xml:space="preserve">
+    <value>Success!&lt;br/&gt;Application restarts in 5 seconds!</value>
+  </data>
+  <data name="en_autoUpdater_msg_success_title" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="en_autoUpdater_msg_terminated" xml:space="preserve">
+    <value>Update terminated!&lt;br/&gt;Cannot complete update!</value>
+  </data>
+  <data name="en_autoUpdater_msg_terminated_title" xml:space="preserve">
+    <value>Terminated</value>
+  </data>
+  <data name="en_autoUpdater_result_latest" xml:space="preserve">
+    <value>Latest version already!</value>
+  </data>
+  <data name="en_autoUpdater_result_none" xml:space="preserve">
+    <value>No update info found!</value>
+  </data>
+  <data name="en_bookmarks" xml:space="preserve">
+    <value>Current Bookmarks</value>
+  </data>
+  <data name="en_bookmarks_clearall" xml:space="preserve">
+    <value>Clear bookmarks</value>
+  </data>
+  <data name="en_bookmarks_none" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="en_bookmark_added" xml:space="preserve">
+    <value>Bookmark added!</value>
+  </data>
+  <data name="en_bookmark_all_deleted" xml:space="preserve">
+    <value>All bookmarks are deleted!</value>
+  </data>
+  <data name="en_bookmark_delete_error" xml:space="preserve">
+    <value>Error deleting current bookmark!</value>
+  </data>
+  <data name="en_bookmark_exists" xml:space="preserve">
+    <value>Bookmark exists!</value>
+  </data>
+  <data name="en_bookmark_none" xml:space="preserve">
+    <value>No bookmark found!</value>
+  </data>
+  <data name="en_button_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="en_button_ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="en_exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="en_hideshow" xml:space="preserve">
+    <value>Hide/Show</value>
+  </data>
+  <data name="en_history" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="en_history_clearall" xml:space="preserve">
+    <value>Clear history</value>
+  </data>
+  <data name="en_history_clearinvalid" xml:space="preserve">
+    <value>Remove invalid history</value>
+  </data>
+  <data name="en_history_none" xml:space="preserve">
+    <value>(None)</value>
+  </data>
+  <data name="en_hotkey1" xml:space="preserve">
+    <value>Next line</value>
+  </data>
+  <data name="en_hotkey10" xml:space="preserve">
+    <value>Remove current bookmark</value>
+  </data>
+  <data name="en_hotkey10_label" xml:space="preserve">
+    <value>Ctrl+Shift+Delete</value>
+  </data>
+  <data name="en_hotkey1_label" xml:space="preserve">
+    <value>Ctrl+Shift+Right</value>
+  </data>
+  <data name="en_hotkey2" xml:space="preserve">
+    <value>Previous line</value>
+  </data>
+  <data name="en_hotkey2_label" xml:space="preserve">
+    <value>Ctrl+Shift+Left</value>
+  </data>
+  <data name="en_hotkey3" xml:space="preserve">
+    <value>Bookmark current line</value>
+  </data>
+  <data name="en_hotkey3_label" xml:space="preserve">
+    <value>Ctrl+Shift+Up</value>
+  </data>
+  <data name="en_hotkey4" xml:space="preserve">
+    <value>Switch to Bookmark View</value>
+  </data>
+  <data name="en_hotkey4_label" xml:space="preserve">
+    <value>Ctrl+Shift+Down</value>
+  </data>
+  <data name="en_hotkey5" xml:space="preserve">
+    <value>Toggle Bookmark View</value>
+  </data>
+  <data name="en_hotkey5_label" xml:space="preserve">
+    <value>Ctrl+Shift+X</value>
+  </data>
+  <data name="en_hotkey6" xml:space="preserve">
+    <value>Hide / Show TaskbarReader</value>
+  </data>
+  <data name="en_hotkey6_label" xml:space="preserve">
+    <value>Ctrl+Shift+Space</value>
+  </data>
+  <data name="en_hotkey7" xml:space="preserve">
+    <value>Quit TaskbarReader</value>
+  </data>
+  <data name="en_hotkey7_label" xml:space="preserve">
+    <value>Ctrl+Shift+Q</value>
+  </data>
+  <data name="en_hotkey8" xml:space="preserve">
+    <value>Previous bookmark</value>
+  </data>
+  <data name="en_hotkey8_label" xml:space="preserve">
+    <value>Ctrl+Shift+Up</value>
+  </data>
+  <data name="en_hotkey9" xml:space="preserve">
+    <value>Next bookmark</value>
+  </data>
+  <data name="en_hotkey9_label" xml:space="preserve">
+    <value>Ctrl+Shift+Down</value>
+  </data>
+  <data name="en_hotkey_button" xml:space="preserve">
+    <value>&lt;b&gt;HOTKEYS&lt;/b&gt;</value>
+  </data>
+  <data name="en_hotkey_invalid_pressed" xml:space="preserve">
+    <value>Invalid key pressed!</value>
+  </data>
+  <data name="en_hotkey_label" xml:space="preserve">
+    <value>Hotkeys</value>
+  </data>
+  <data name="en_hotkey_registration_failed" xml:space="preserve">
+    <value>Failed to register some of the hot keys!</value>
+  </data>
+  <data name="en_only_single_file" xml:space="preserve">
+    <value>One file at a time!</value>
+  </data>
+  <data name="en_only_txt_file" xml:space="preserve">
+    <value>TXT file only!</value>
+  </data>
+  <data name="en_openFile" xml:space="preserve">
+    <value>Open TXT</value>
+  </data>
+  <data name="en_openFileDialog_filter" xml:space="preserve">
+    <value>Text File|*.txt</value>
+  </data>
+  <data name="en_openFileDialog_title" xml:space="preserve">
+    <value>Choose a TXT file</value>
+  </data>
+  <data name="en_pictureBox_string_1" xml:space="preserve">
+    <value>Drag a TXT file here</value>
+  </data>
+  <data name="en_pictureBox_string_2" xml:space="preserve">
+    <value>OR... Double click here</value>
+  </data>
+  <data name="en_pictureBox_string_3" xml:space="preserve">
+    <value>Reading: </value>
+  </data>
+  <data name="en_readbackward_nomore" xml:space="preserve">
+    <value>Already at the FIRST line!</value>
+  </data>
+  <data name="en_readforward_nomore" xml:space="preserve">
+    <value>Already at the LAST line!</value>
+  </data>
+  <data name="en_timer_error" xml:space="preserve">
+    <value>Invalid value!</value>
+  </data>
+  <data name="en_update_completed" xml:space="preserve">
+    <value>Completed: </value>
+  </data>
+  <data name="en_update_cur" xml:space="preserve">
+    <value>Cur Version</value>
+  </data>
+  <data name="en_update_description" xml:space="preserve">
+    <value>Update Description</value>
+  </data>
+  <data name="en_update_download" xml:space="preserve">
+    <value>Download Update</value>
+  </data>
+  <data name="en_update_downloaded" xml:space="preserve">
+    <value>Downloaded: </value>
+  </data>
+  <data name="en_update_downloading" xml:space="preserve">
+    <value>Downloading Update ...</value>
+  </data>
+  <data name="en_update_found" xml:space="preserve">
+    <value>Update found!</value>
+  </data>
+  <data name="en_update_found_title" xml:space="preserve">
+    <value>Update found</value>
+  </data>
+  <data name="en_update_new" xml:space="preserve">
+    <value>New Version</value>
+  </data>
+  <data name="en_update_verifying" xml:space="preserve">
+    <value>Verifying Update ...</value>
+  </data>
+  <data name="en_window_get_dim_failed" xml:space="preserve">
+    <value>Failed to get window dimensions!</value>
+  </data>
+  <data name="zh_about_author_label" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="zh_about_button" xml:space="preserve">
+    <value>&lt;b&gt;关于&lt;/b&gt;</value>
+  </data>
+  <data name="zh_about_email_label" xml:space="preserve">
+    <value>邮箱</value>
+  </data>
+  <data name="zh_about_intro" xml:space="preserve">
+    <value>任务栏中看小说！&lt;br/&gt;谢谢支持！</value>
+  </data>
+  <data name="zh_about_intro_label" xml:space="preserve">
+    <value>简介</value>
+  </data>
+  <data name="zh_about_label" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="zh_about_version_label" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="zh_apt_end_label" xml:space="preserve">
+    <value>30 秒</value>
+  </data>
+  <data name="zh_apt_label" xml:space="preserve">
+    <value>自动翻页</value>
+  </data>
+  <data name="zh_apt_label2" xml:space="preserve">
+    <value>自动翻页设置</value>
+  </data>
+  <data name="zh_apt_label_sec" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="zh_apt_start_label" xml:space="preserve">
+    <value>0 秒&lt;br/&gt;手动翻页</value>
+  </data>
+  <data name="zh_apt_tooltip" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="zh_autoUpdater_msg_failed" xml:space="preserve">
+    <value>更新出错！&lt;br/&gt;请稍后再试一次！</value>
+  </data>
+  <data name="zh_autoUpdater_msg_failed_title" xml:space="preserve">
+    <value>更新出错</value>
+  </data>
+  <data name="zh_autoUpdater_msg_success" xml:space="preserve">
+    <value>更新成功！&lt;br/&gt;程序5秒后即将自动重启！</value>
+  </data>
+  <data name="zh_autoUpdater_msg_success_title" xml:space="preserve">
+    <value>更新成功</value>
+  </data>
+  <data name="zh_autoUpdater_msg_terminated" xml:space="preserve">
+    <value>更新过程被中断！&lt;br/&gt;无法完成更新！</value>
+  </data>
+  <data name="zh_autoUpdater_msg_terminated_title" xml:space="preserve">
+    <value>更新中断</value>
+  </data>
+  <data name="zh_autoUpdater_result_latest" xml:space="preserve">
+    <value>已经是最新版本！</value>
+  </data>
+  <data name="zh_autoUpdater_result_none" xml:space="preserve">
+    <value>没有找到更新信息！</value>
+  </data>
+  <data name="zh_bookmarks" xml:space="preserve">
+    <value>本书书签</value>
+  </data>
+  <data name="zh_bookmarks_clearall" xml:space="preserve">
+    <value>清空书签</value>
+  </data>
+  <data name="zh_bookmarks_none" xml:space="preserve">
+    <value>(无)</value>
+  </data>
+  <data name="zh_bookmark_added" xml:space="preserve">
+    <value>已添加书签！</value>
+  </data>
+  <data name="zh_bookmark_all_deleted" xml:space="preserve">
+    <value>所有书签都已被删除！</value>
+  </data>
+  <data name="zh_bookmark_delete_error" xml:space="preserve">
+    <value>删除书签出错！</value>
+  </data>
+  <data name="zh_bookmark_exists" xml:space="preserve">
+    <value>书签已存在！</value>
+  </data>
+  <data name="zh_bookmark_none" xml:space="preserve">
+    <value>没有书签！</value>
+  </data>
+  <data name="zh_button_cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="zh_button_ok" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="zh_exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="zh_hideshow" xml:space="preserve">
+    <value>隐藏/显示</value>
+  </data>
+  <data name="zh_history" xml:space="preserve">
+    <value>历史记录</value>
+  </data>
+  <data name="zh_history_clearall" xml:space="preserve">
+    <value>清空历史记录</value>
+  </data>
+  <data name="zh_history_clearinvalid" xml:space="preserve">
+    <value>删除无效记录</value>
+  </data>
+  <data name="zh_history_none" xml:space="preserve">
+    <value>(无)</value>
+  </data>
+  <data name="zh_hotkey1" xml:space="preserve">
+    <value>下一行</value>
+  </data>
+  <data name="zh_hotkey10" xml:space="preserve">
+    <value>删除当前书签</value>
+  </data>
+  <data name="zh_hotkey10_label" xml:space="preserve">
+    <value>Ctrl+Shift+Delete</value>
+  </data>
+  <data name="zh_hotkey1_label" xml:space="preserve">
+    <value>Ctrl+Shift+右</value>
+  </data>
+  <data name="zh_hotkey2" xml:space="preserve">
+    <value>上一行</value>
+  </data>
+  <data name="zh_hotkey2_label" xml:space="preserve">
+    <value>Ctrl+Shift+左</value>
+  </data>
+  <data name="zh_hotkey3" xml:space="preserve">
+    <value>添加当前行为书签</value>
+  </data>
+  <data name="zh_hotkey3_label" xml:space="preserve">
+    <value>Ctrl+Shift+上</value>
+  </data>
+  <data name="zh_hotkey4" xml:space="preserve">
+    <value>切换到书签模式</value>
+  </data>
+  <data name="zh_hotkey4_label" xml:space="preserve">
+    <value>Ctrl+Shift+下</value>
+  </data>
+  <data name="zh_hotkey5" xml:space="preserve">
+    <value>切换阅读/书签模式</value>
+  </data>
+  <data name="zh_hotkey5_label" xml:space="preserve">
+    <value>Ctrl+Shift+X</value>
+  </data>
+  <data name="zh_hotkey6" xml:space="preserve">
+    <value>显示/隐藏 TaskbarReader</value>
+  </data>
+  <data name="zh_hotkey6_label" xml:space="preserve">
+    <value>Ctrl+Shift+空格</value>
+  </data>
+  <data name="zh_hotkey7" xml:space="preserve">
+    <value>退出 TaskbarReader</value>
+  </data>
+  <data name="zh_hotkey7_label" xml:space="preserve">
+    <value>Ctrl+Shift+Q</value>
+  </data>
+  <data name="zh_hotkey8" xml:space="preserve">
+    <value>下一个书签</value>
+  </data>
+  <data name="zh_hotkey8_label" xml:space="preserve">
+    <value>Ctrl+Shift+上</value>
+  </data>
+  <data name="zh_hotkey9" xml:space="preserve">
+    <value>上一个书签</value>
+  </data>
+  <data name="zh_hotkey9_label" xml:space="preserve">
+    <value>Ctrl+Shift+下</value>
+  </data>
+  <data name="zh_hotkey_button" xml:space="preserve">
+    <value>&lt;b&gt;热键说明&lt;/b&gt;</value>
+  </data>
+  <data name="zh_hotkey_invalid_pressed" xml:space="preserve">
+    <value>热键无效！</value>
+  </data>
+  <data name="zh_hotkey_label" xml:space="preserve">
+    <value>热键说明</value>
+  </data>
+  <data name="zh_hotkey_registration_failed" xml:space="preserve">
+    <value>一些热键注册失败！</value>
+  </data>
+  <data name="zh_only_single_file" xml:space="preserve">
+    <value>只能拖入一个文件！</value>
+  </data>
+  <data name="zh_only_txt_file" xml:space="preserve">
+    <value>只能拖入TXT文件！</value>
+  </data>
+  <data name="zh_openFile" xml:space="preserve">
+    <value>打开TXT</value>
+  </data>
+  <data name="zh_openFileDialog_filter" xml:space="preserve">
+    <value>文本文件|*.txt</value>
+  </data>
+  <data name="zh_openFileDialog_title" xml:space="preserve">
+    <value>请选择TXT文件</value>
+  </data>
+  <data name="zh_pictureBox_string_1" xml:space="preserve">
+    <value>拖拽TXT文件到框内</value>
+  </data>
+  <data name="zh_pictureBox_string_2" xml:space="preserve">
+    <value>或者双击框内</value>
+  </data>
+  <data name="zh_pictureBox_string_3" xml:space="preserve">
+    <value>正在阅读：</value>
+  </data>
+  <data name="zh_readbackward_nomore" xml:space="preserve">
+    <value>已是第一行！</value>
+  </data>
+  <data name="zh_readforward_nomore" xml:space="preserve">
+    <value>已是最后一行！</value>
+  </data>
+  <data name="zh_timer_error" xml:space="preserve">
+    <value>无效指令！</value>
+  </data>
+  <data name="zh_update_completed" xml:space="preserve">
+    <value>已完成：</value>
+  </data>
+  <data name="zh_update_cur" xml:space="preserve">
+    <value>当前版本</value>
+  </data>
+  <data name="zh_update_description" xml:space="preserve">
+    <value>更新内容</value>
+  </data>
+  <data name="zh_update_download" xml:space="preserve">
+    <value>下载更新</value>
+  </data>
+  <data name="zh_update_downloaded" xml:space="preserve">
+    <value>已下载：</value>
+  </data>
+  <data name="zh_update_downloading" xml:space="preserve">
+    <value>正在下载更新……</value>
+  </data>
+  <data name="zh_update_found" xml:space="preserve">
+    <value>有新版本发布！</value>
+  </data>
+  <data name="zh_update_found_title" xml:space="preserve">
+    <value>检测到更新</value>
+  </data>
+  <data name="zh_update_new" xml:space="preserve">
+    <value>更新版本</value>
+  </data>
+  <data name="zh_update_verifying" xml:space="preserve">
+    <value>验证更新……</value>
+  </data>
+  <data name="zh_window_get_dim_failed" xml:space="preserve">
+    <value>无法获得窗口尺寸！</value>
+  </data>
+  <data name="clock_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\clock.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="en_hotkey_label1" xml:space="preserve">
+    <value>Bookmark View</value>
+  </data>
+  <data name="zh_hotkey_label1" xml:space="preserve">
+    <value>书签模式</value>
+  </data>
+</root>
