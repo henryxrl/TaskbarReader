@@ -90,7 +90,7 @@ namespace AutoUpdate
 
 		private void AutoUpdateDownloadForm_Load(object sender, EventArgs e)
 		{
-			this.lblDownloading.ForeColor = tools.ForeColor;
+			this.lblDownloading.ForeColor = tools.ThemeColor;
 		}
 
 		/// <summary>

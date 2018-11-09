@@ -142,7 +142,7 @@ namespace AutoUpdate
 				description = updateNode["description"].InnerText;
 				launchArgs = updateNode["launchArgs"].InnerText;
 
-				return new AutoUpdateXml(version, new Uri(url), fileName, md5, description, launchArgs);
+                return new AutoUpdateXml(version, new Uri(url), fileName, md5, description, launchArgs);
 			}
 			catch { return null; }
 		}

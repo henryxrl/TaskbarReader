@@ -66,9 +66,9 @@ namespace AutoUpdate
 
 		private void AutoUpdateAcceptForm_Load(object sender, EventArgs e)
 		{
-			this.lblNewVersion_label.ForeColor = tools.ForeColor;
-			this.lblCurVersion_label.ForeColor = tools.ForeColor;
-			this.lblDescription.ForeColor = tools.ForeColor;
+			this.lblNewVersion_label.ForeColor = tools.ThemeColor;
+			this.lblCurVersion_label.ForeColor = tools.ThemeColor;
+			this.lblDescription.ForeColor = tools.ThemeColor;
 		}
 
 		private void btnYes_Click(object sender, EventArgs e)

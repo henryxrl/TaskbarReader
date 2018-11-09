@@ -14,14 +14,16 @@ namespace TaskbarReader
 		private static String iniPath = Application.StartupPath + "\\bookmarks.ini";
 		private IniFile ini = new IniFile(iniPath);
 
+        Color themeColor;
 		Color foreColor;
         Color backColor;
 		String langCode;
 		String bookName;
 		Int32 totalLineNum;
 
-		public Tools(Color c1, Color c2, String s)
+		public Tools(Color c0, Color c1, Color c2, String s)
 		{
+            themeColor = c0;
             foreColor = c1;
             backColor = c2;
 			langCode = s;
@@ -42,7 +44,12 @@ namespace TaskbarReader
 			get { return langCode; }
 		}
 
-		public Color ForeColor
+        public Color ThemeColor
+        {
+            get { return themeColor; }
+        }
+
+        public Color ForeColor
 		{
 			get { return foreColor; }
 		}

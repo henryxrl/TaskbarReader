@@ -55,7 +55,7 @@ namespace TaskbarReader
 
         public Uri UpdateXmlLocation
         {
-            get { return new Uri("https://raw.githubusercontent.com/henryxrl/TBReader2/master/TBReader2_Update.xml"); }
+            get { return new Uri("https://raw.githubusercontent.com/henryxrl/TaskbarReader/master/TaskbarReader_Update.xml"); }
         }
 
         public Form Context
@@ -309,7 +309,7 @@ namespace TaskbarReader
         private void SetTools()
         {
             // themeColor
-            //Color themeColor = styleManager.MetroColorParameters.BaseColor;
+            Color themeColor = Color.FromArgb(40, 100, 130);
             Color foreColor = Color.FromArgb(220, 220, 220);
             Color backColor = Color.FromArgb(36, 36, 36);
 
@@ -327,7 +327,7 @@ namespace TaskbarReader
             }
 
             // set tools
-            tools = new Tools(foreColor, backColor, langCode);
+            tools = new Tools(themeColor, foreColor, backColor, langCode);
         }
 
         private async void LaunchInTaskBar()
