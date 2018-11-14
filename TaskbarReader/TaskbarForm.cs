@@ -209,7 +209,7 @@ namespace TaskbarReader
         private void TaskbarSizeChanged()
         {
             Console.WriteLine("Taskbar size changed");
-            if (this != null && taskbar != null)
+            if ((this != null || !this.IsDisposed || !this.Disposing) && taskbar != null)
                 SetupTaskbarForm(1);
         }
 
@@ -245,14 +245,16 @@ namespace TaskbarReader
                 content.TextAlign = ContentAlignment.TopCenter;
                 font = new Font(font.FontFamily, GetProperFontSize(), font.Style, font.Unit);
                 content.Font = font;
-                content.Text = string.Join(Environment.NewLine, tools.GetString("vertical_not_supported").Split(new string[] { "<br/>" }, StringSplitOptions.None)); ;
+                content.Text = string.Join(Environment.NewLine, tools.GetString("vertical_not_supported").Split(new string[] { "<br/>" }, StringSplitOptions.None));
             }
             else
             {
                 content.TextAlign = ContentAlignment.MiddleLeft;
                 font = new Font(font.FontFamily, GetProperFontSize(), font.Style, font.Unit);
                 content.Font = font;
-                content.Text = tools.GetString("openFileDialog_title");
+                //if (content.Text.CompareTo(string.Join(Environment.NewLine, tools.GetString("vertical_not_supported").Split(new string[] { "<br/>" }, StringSplitOptions.None))) == 0 || initialLaunch)
+                //    content.Text = tools.GetString("openFileDialog_title");
+                ReadCurrentLine();
             }
         }
 
@@ -692,6 +694,9 @@ namespace TaskbarReader
             //StopListeningForWindowResize();
             //StopListeningForWindowSwitch();
 
+            taskbar.SizeChanged = null;
+            taskbar.Dispose();
+
             if (Application.MessageLoop)
             {
                 // WinForms app
@@ -786,8 +791,8 @@ namespace TaskbarReader
                 lineOffset_OLD = (lineOffset_OLD >= curLineText_content.Length) ? 0 : lineOffset_OLD;
 
                 if (flag == 0)
-                    curLineText = TruncatePixelLength(curLineText_pre, curLineText_content, lineOffset_OLD);
-                else curLineText = TruncatePixelLength(curLineText_pre, curLineText_content, lineOffset);
+                    curLineText = TruncatePixelLength_BinarySearch(curLineText_pre, curLineText_content, lineOffset_OLD);
+                else curLineText = TruncatePixelLength_BinarySearch(curLineText_pre, curLineText_content, lineOffset);
 
                 SetText(curLineText);
             }
@@ -842,6 +847,17 @@ namespace TaskbarReader
 
                 JumpToLine(0);
                 SaveCurProgess();
+            }
+            else
+            {
+                if (isVertical)
+                {
+                    content.Text = string.Join(Environment.NewLine, tools.GetString("vertical_not_supported").Split(new string[] { "<br/>" }, StringSplitOptions.None));
+                }
+                else
+                {
+                    content.Text = tools.GetString("openFileDialog_title");
+                }
             }
         }
 
@@ -1073,11 +1089,31 @@ namespace TaskbarReader
             content.Text = s;
         }
 
+        private static Encoding GetEncoding(string filename)
+        {
+            // Read the BOM
+            var bom = new byte[4];
+            using (var file = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            {
+                file.Read(bom, 0, 4);
+            }
+
+            // Analyze the BOM
+            Encoding result = Encoding.Default;
+            if (bom[0] == 0x2b && bom[1] == 0x2f && bom[2] == 0x76) result = Encoding.UTF7;
+            if (bom[0] == 0xef && bom[1] == 0xbb && bom[2] == 0xbf) result = Encoding.UTF8;
+            if (bom[0] == 0xff && bom[1] == 0xfe) result = Encoding.Unicode; //UTF-16LE
+            if (bom[0] == 0xfe && bom[1] == 0xff) result = Encoding.BigEndianUnicode; //UTF-16BE
+            if (bom[0] == 0 && bom[1] == 0 && bom[2] == 0xfe && bom[3] == 0xff) result = Encoding.UTF32;
+            Console.WriteLine("Encoding: " + result.EncodingName);
+            return Encoding.Default;
+        }
+
         private void ProcessBook()
         {
             try
             {
-                txt_book = File.ReadAllLines(txt_URL, Encoding.Default)
+                txt_book = File.ReadAllLines(txt_URL, GetEncoding(txt_URL))
                     .Where(arg => !string.IsNullOrWhiteSpace(arg)).ToArray();
                 //txt_name = Path.GetFileNameWithoutExtension(txt_URL);
                 txt_name = Path.GetFullPath(txt_URL);
@@ -1139,6 +1175,80 @@ namespace TaskbarReader
                 tempLength = MeasureDisplayStringWidth(content.Substring(0, idx + 1));
             }
             //Console.WriteLine("tempLength2: " + tempLength);
+
+            // Truncate substring at word
+            int newIdx = content.LastIndexOf(" ", idx, idx + 1);
+            idx = (newIdx > 0) ? newIdx : idx;
+
+            // Update lineOffset
+            if (idx == content.Length - 1)
+                lineOffset = 0;
+            else lineOffset = startIdx + idx;
+
+            // return result
+            string result = pre + content.Substring(0, idx + 1) + "...";
+            //Console.WriteLine("final length: " + MeasureDisplayStringWidth(result));
+            return result;
+        }
+
+        private string TruncatePixelLength_BinarySearch(string pre, string line, int startIdx)
+        {
+            // Update lineOffset_OLD
+            lineOffset_OLD = startIdx;
+
+            string content = line.Substring(startIdx);
+            string input = pre + content;
+            int safty_value = MeasureDisplayStringWidth(pre + pre + "......");
+
+            // If everything fits, return
+            //Console.WriteLine("Text length: " + TextRenderer.MeasureText(input, SystemFonts.CaptionFont).Width);
+            //Console.WriteLine("Text length2: " + MeasureDisplayStringWidth(input, SystemFonts.CaptionFont));
+            //int stringLengthInPixel = TextRenderer.MeasureText(input, SystemFonts.CaptionFont).Width;
+            int stringLengthInPixel = MeasureDisplayStringWidth(input);
+            //Console.WriteLine("stringLengthInPixel: " + stringLengthInPixel);
+            if (stringLengthInPixel < width - safty_value)
+            {
+                lineOffset = 0;
+                return input;
+            }
+
+            // If not, calculate max substring that fits
+            //int newLength = length - TextRenderer.MeasureText(pre + "...", SystemFonts.CaptionFont).Width;
+            int newLength = width - safty_value;  // just to be safe
+            //Console.WriteLine("newLength: " + newLength);
+            int tempLength = 0;
+            int idx = 0;
+            int min = 0;
+            int max = content.Length - 1;
+            while (min < max)
+            {
+                int mid = (min + max) / 2;
+                tempLength = MeasureDisplayStringWidth(content.Substring(0, mid + 1));
+                if (tempLength < newLength)
+                {
+                    min = mid + 1;
+                }
+                else if (tempLength >= newLength)
+                {
+                    max = mid - 1;
+                }
+                else
+                {
+                    if (max - min == 0 || max - min == 1)
+                        break;
+                    else
+                    { 
+                        Console.WriteLine("min: " + min);
+                        Console.WriteLine("mid: " + mid);
+                        Console.WriteLine("max: " + max);
+                        Console.WriteLine("tempLength: " + tempLength);
+                        Console.WriteLine("newLength: " + newLength);
+                        break;
+                    }
+                }
+            }
+            idx = min;
+            //Console.WriteLine("idx bianry: " + idx);
 
             // Truncate substring at word
             int newIdx = content.LastIndexOf(" ", idx, idx + 1);

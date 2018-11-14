@@ -1,23 +1,21 @@
 <sharpUpdate>
   <update appID="TaskbarReader">
-    <version>2.3.1.6</version>
+    <version>2.3.1.8</version>
     <url>https://raw.githubusercontent.com/henryxrl/TaskbarReader/master/TaskbarReader/bin/Release/TaskbarReader.exe</url>
     <fileName>TaskbarReader.exe</fileName>
-    <md5>99678A6C30FDA2076A5FFFD9C45510F3</md5>
+    <md5>4726D7D9A9EE6A6E8A7CE070130B9DC9</md5>
     <launchArgs>
     </launchArgs>
-    <description>11/9/2018 Update:
-    1. Fixed: Exit logic
-    2. Added: Taskbar size change event listener
-    3. Added: "Not supported" message when taskbar is vertical
-    4. Changed: Several keyboard shorcuts
-    5. Changed: More complete How To instructions
+    <description>11/13/2018 Update:
+    1. FIXED: Text display logic when taskbar triggers a SizeChange Action
+    2. FIXED: Errors when exiting
+    3. FIXED: Faster line processing
+    4. FIXED: Text encoding detection
 
-11/9/2018 更新：
-    1. 修复：程序退出逻辑
-    2. 新增：任务栏大小改变时的程序逻辑
-    3. 新增：“不支持竖任务栏”的提示消息
-    4. 改变：一些热键设置
-    4. 改变：更完整的使用说明</description>
+11/13/2018 更新：
+    1. 修复：任务栏大小改变时文字显示不正确的问题
+    2. 修复：程序退出时出错的问题
+    3. 修复：有时换行过慢的问题
+    4. 修复：文本文件编码检测</description>
   </update>
 </sharpUpdate>
