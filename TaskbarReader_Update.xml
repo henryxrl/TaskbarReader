@@ -3,7 +3,7 @@
     <version>2.3.1.8</version>
     <url>https://raw.githubusercontent.com/henryxrl/TaskbarReader/master/TaskbarReader/bin/Release/TaskbarReader.exe</url>
     <fileName>TaskbarReader.exe</fileName>
-    <md5>4726D7D9A9EE6A6E8A7CE070130B9DC9</md5>
+    <md5>EE4C3E498702DCEB75078B9947226825</md5>
     <launchArgs>
     </launchArgs>
     <description>11/13/2018 Update:
@@ -11,11 +11,13 @@
     2. FIXED: Errors when exiting
     3. FIXED: Faster line processing
     4. FIXED: Text encoding detection
+    5. FIXED: New line break 
 
 11/13/2018 更新：
     1. 修复：任务栏大小改变时文字显示不正确的问题
     2. 修复：程序退出时出错的问题
     3. 修复：有时换行过慢的问题
-    4. 修复：文本文件编码检测</description>
+    4. 修复：文本文件编码检测
+    5. 修复：新的新行符号</description>
   </update>
 </sharpUpdate>

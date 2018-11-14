@@ -117,6 +117,8 @@ namespace TaskbarReader
         private int lineOffset;       // 0-based. character index of a line
         private int lineOffset_OLD;
 
+        private static string newLineSymbol = "  ↵";      // ⏎⌫☛☞⚜
+
         #endregion
 
         #region Bookmark
@@ -705,7 +707,7 @@ namespace TaskbarReader
             else
             {
                 // Console app
-                Environment.Exit(1);
+                Environment.Exit(0);
             }
         }
 
@@ -1144,7 +1146,7 @@ namespace TaskbarReader
 
             string content = line.Substring(startIdx);
             string input = pre + content;
-            int safty_value = MeasureDisplayStringWidth(pre + pre + "......");
+            int safty_value = MeasureDisplayStringWidth(pre + pre + newLineSymbol + newLineSymbol);
 
             // If everything fits, return
             //Console.WriteLine("Text length: " + TextRenderer.MeasureText(input, SystemFonts.CaptionFont).Width);
@@ -1159,7 +1161,7 @@ namespace TaskbarReader
             }
 
             // If not, calculate max substring that fits
-            //int newLength = length - TextRenderer.MeasureText(pre + "...", SystemFonts.CaptionFont).Width;
+            //int newLength = length - TextRenderer.MeasureText(pre + newLineSymbol, SystemFonts.CaptionFont).Width;
             int newLength = width - safty_value;  // just to be safe
             //Console.WriteLine("newLength: " + newLength);
             int tempLength = 0;
@@ -1186,7 +1188,7 @@ namespace TaskbarReader
             else lineOffset = startIdx + idx;
 
             // return result
-            string result = pre + content.Substring(0, idx + 1) + "...";
+            string result = pre + content.Substring(0, idx + 1) + newLineSymbol;
             //Console.WriteLine("final length: " + MeasureDisplayStringWidth(result));
             return result;
         }
@@ -1198,7 +1200,7 @@ namespace TaskbarReader
 
             string content = line.Substring(startIdx);
             string input = pre + content;
-            int safty_value = MeasureDisplayStringWidth(pre + pre + "......");
+            int safty_value = MeasureDisplayStringWidth(pre + pre + newLineSymbol + newLineSymbol);
 
             // If everything fits, return
             //Console.WriteLine("Text length: " + TextRenderer.MeasureText(input, SystemFonts.CaptionFont).Width);
@@ -1213,7 +1215,7 @@ namespace TaskbarReader
             }
 
             // If not, calculate max substring that fits
-            //int newLength = length - TextRenderer.MeasureText(pre + "...", SystemFonts.CaptionFont).Width;
+            //int newLength = length - TextRenderer.MeasureText(pre + newLineSymbol, SystemFonts.CaptionFont).Width;
             int newLength = width - safty_value;  // just to be safe
             //Console.WriteLine("newLength: " + newLength);
             int tempLength = 0;
@@ -1260,7 +1262,7 @@ namespace TaskbarReader
             else lineOffset = startIdx + idx;
 
             // return result
-            string result = pre + content.Substring(0, idx + 1) + "...";
+            string result = pre + content.Substring(0, idx + 1) + newLineSymbol;
             //Console.WriteLine("final length: " + MeasureDisplayStringWidth(result));
             return result;
         }
