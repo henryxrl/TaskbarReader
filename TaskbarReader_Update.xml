@@ -1,23 +1,15 @@
 <sharpUpdate>
   <update appID="TaskbarReader">
-    <version>2.3.1.8</version>
+    <version>2.3.1.9</version>
     <url>https://raw.githubusercontent.com/henryxrl/TaskbarReader/master/TaskbarReader/bin/Release/TaskbarReader.exe</url>
     <fileName>TaskbarReader.exe</fileName>
-    <md5>EE4C3E498702DCEB75078B9947226825</md5>
+    <md5>6CB995095BC96F18D7A7BDC8DAA86EB9</md5>
     <launchArgs>
     </launchArgs>
-    <description>11/13/2018 Update:
-    1. FIXED: Text display logic when taskbar triggers a SizeChange Action
-    2. FIXED: Errors when exiting
-    3. FIXED: Faster line processing
-    4. FIXED: Text encoding detection
-    5. FIXED: New line break 
+    <description>11/14/2018 Update:
+    1. NEW: Auto hide after 60 seconds of inactivity
 
-11/13/2018 更新：
-    1. 修复：任务栏大小改变时文字显示不正确的问题
-    2. 修复：程序退出时出错的问题
-    3. 修复：有时换行过慢的问题
-    4. 修复：文本文件编码检测
-    5. 修复：新的新行符号</description>
+11/14/2018 更新：
+    1. 新增：程序在60秒不活动之后自动隐藏</description>
   </update>
 </sharpUpdate>

@@ -92,6 +92,13 @@ namespace TaskbarReader
 
         #endregion
 
+        #region Auto Hide
+
+        private static int ahTime = 60;     // autho hide app after 60 seconds
+        private static int ahTimerCount;
+
+        #endregion
+
         #region TXT
 
         private string txt_URL;
@@ -248,6 +255,8 @@ namespace TaskbarReader
                 font = new Font(font.FontFamily, GetProperFontSize(), font.Style, font.Unit);
                 content.Font = font;
                 content.Text = string.Join(Environment.NewLine, tools.GetString("vertical_not_supported").Split(new string[] { "<br/>" }, StringSplitOptions.None));
+
+                ahTimerCount = ahTime;
             }
             else
             {
@@ -552,6 +561,7 @@ namespace TaskbarReader
             using (APTDialog apt = new APTDialog(tools))
             {
                 timerCount = -1;    // pause
+                ahTimerCount = -1;
 
                 apt.StartPosition = FormStartPosition.Manual;
                 int w = Screen.GetWorkingArea(apt).Width;
@@ -569,6 +579,7 @@ namespace TaskbarReader
                 timerCount = aptTime;
                 timerFlag = 0;  // auto read forward
             }
+            ahTimerCount = ahTime;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -597,15 +608,32 @@ namespace TaskbarReader
             }
         }
 
+        private void Autohide_Timer_Tick(object sender, EventArgs e)
+        {
+            if (!(timer.Enabled = true && aptTime > 0))     // when auto page turn is on, turn auto hide off
+            {
+                ahTimerCount--;
+                //Console.WriteLine("auto hide timer: " + ahTimerCount);
+
+                if (ahTimerCount == 0)
+                {
+                    if (this.Visible)
+                        this.Hide();
+                }
+            }
+        }
+
         private void TaskbarForm_VisibleChanged(object sender, EventArgs e)
         {
             if (this.Visible)
             {
                 timerCount = aptTime;    // resume
+                ahTimerCount = ahTime;
             }
             else
             {
                 timerCount = -1;    // pause
+                ahTimerCount = -1;
             }
         }
 
@@ -614,6 +642,7 @@ namespace TaskbarReader
             using (HotKeys hky = new HotKeys(tools))
             {
                 timerCount = -1;    // pause
+                ahTimerCount = -1;
 
                 hky.StartPosition = FormStartPosition.Manual;
                 int w = Screen.GetWorkingArea(hky).Width;
@@ -622,6 +651,7 @@ namespace TaskbarReader
                 hky.ShowDialog();
 
                 timerCount = aptTime;    // resume
+                ahTimerCount = ahTime;
             }
         }
 
@@ -630,6 +660,7 @@ namespace TaskbarReader
             using (About abt = new About(tools))
             {
                 timerCount = -1;    // pause
+                ahTimerCount = -1;
 
                 abt.StartPosition = FormStartPosition.Manual;
                 int w = Screen.GetWorkingArea(abt).Width;
@@ -638,18 +669,21 @@ namespace TaskbarReader
                 abt.ShowDialog();
 
                 timerCount = aptTime;    // resume
+                ahTimerCount = ahTime;
             }
         }
 
         private void ContextMenuStrip_Opening(object sender, CancelEventArgs e)
         {
             timerCount = -1;    // pause
+            ahTimerCount = -1;
             BuildContextMenuStrip();
         }
 
         private void ContextMenuStrip_Closed(object sender, ToolStripDropDownClosedEventArgs e)
         {
             timerCount = aptTime;    // resume
+            ahTimerCount = ahTime;
         }
 
         private void HideshowClick(object sender, EventArgs e)
@@ -667,6 +701,7 @@ namespace TaskbarReader
             if (!isVertical)
             {
                 timerCount = -1;    // pause
+                ahTimerCount = -1;
 
                 openFileDialog.Title = tools.GetString("openFileDialog_title");
                 openFileDialog.Filter = tools.GetString("openFileDialog_filter");
@@ -680,6 +715,7 @@ namespace TaskbarReader
                 }
 
                 timerCount = aptTime;    // resume
+                ahTimerCount = ahTime;
             }
         }
 
@@ -820,6 +856,8 @@ namespace TaskbarReader
 
         private void ReadForward()
         {
+            ahTimerCount = ahTime;
+
             if (txt_URL != null)
             {
                 if (lineOffset != 0)
@@ -843,6 +881,8 @@ namespace TaskbarReader
 
         private void ReadCurrentLine()
         {
+            ahTimerCount = ahTime;
+
             if (txt_URL != null)
             {
                 BookmarkView = false;
@@ -865,6 +905,8 @@ namespace TaskbarReader
 
         private void ReadBackward()
         {
+            ahTimerCount = ahTime;
+
             if (txt_URL != null)
             {
                 if (lineOffset != 0)
@@ -894,6 +936,8 @@ namespace TaskbarReader
 
         private void AddBookMark()
         {
+            ahTimerCount = ahTime;
+
             if (txt_URL != null)
             {
                 if (tools.WriteBookMark(curLineNum, lineOffset_OLD))
@@ -915,6 +959,8 @@ namespace TaskbarReader
         // flag == -1: previous bookmark; flag == 0: current bookmark; flag == 1: next bookmark
         private void JumpThroughBookMarks(int flag)
         {
+            ahTimerCount = ahTime;
+
             if (txt_URL != null)
             {
                 bookmarks = tools.LoadBookMarks();
@@ -964,6 +1010,8 @@ namespace TaskbarReader
 
         private void DeleteCurBookMark()
         {
+            ahTimerCount = ahTime;
+
             if (txt_URL != null && isBookmarkView)
             {
                 if (tools.DeleteBookMark(curLineNum, lineOffset_OLD))
@@ -1041,6 +1089,8 @@ namespace TaskbarReader
 
         private void ToggleBookmarkView()
         {
+            ahTimerCount = ahTime;
+
             if (txt_URL != null)
             {
                 if (isBookmarkView)

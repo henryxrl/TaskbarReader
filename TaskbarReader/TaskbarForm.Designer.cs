@@ -35,6 +35,7 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.autohide_timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // content
@@ -70,6 +71,12 @@
             this.contextMenuStrip.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.ContextMenuStrip_Closed);
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStrip_Opening);
             // 
+            // autohide_timer
+            // 
+            this.autohide_timer.Enabled = true;
+            this.autohide_timer.Interval = 1000;
+            this.autohide_timer.Tick += new System.EventHandler(this.Autohide_Timer_Tick);
+            // 
             // TaskbarForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -93,5 +100,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.Timer autohide_timer;
     }
 }
