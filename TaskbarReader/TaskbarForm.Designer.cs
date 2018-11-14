@@ -87,7 +87,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TaskbarForm";
-            this.ShowInTaskbar = false;
             this.Text = "TaskbarForm";
             this.VisibleChanged += new System.EventHandler(this.TaskbarForm_VisibleChanged);
             this.ResumeLayout(false);
