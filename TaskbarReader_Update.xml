@@ -3,13 +3,15 @@
     <version>2.3.1.9</version>
     <url>https://raw.githubusercontent.com/henryxrl/TaskbarReader/master/TaskbarReader/bin/Release/TaskbarReader.exe</url>
     <fileName>TaskbarReader.exe</fileName>
-    <md5>6CB995095BC96F18D7A7BDC8DAA86EB9</md5>
+    <md5>F03A25CB33518ADD6728F9F96D6C06A4</md5>
     <launchArgs>
     </launchArgs>
     <description>11/14/2018 Update:
     1. NEW: Auto hide after 60 seconds of inactivity
+    2. NEW: Double click on the tray icon hide / show the app
 
 11/14/2018 更新：
-    1. 新增：程序在60秒不活动之后自动隐藏</description>
+    1. 新增：程序在60秒不活动之后自动隐藏
+    2. 新增：在托盘图标上左键双击显示/隐藏程序</description>
   </update>
 </sharpUpdate>

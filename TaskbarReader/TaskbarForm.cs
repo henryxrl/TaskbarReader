@@ -483,6 +483,14 @@ namespace TaskbarReader
             }
         }
 
+        private void NotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                HideShow();
+            }
+        }
+
         private void OpenFileClick(object sender, EventArgs e)
         {
             OpenFile();
